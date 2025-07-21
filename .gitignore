@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # See https://www.dartlang.org/guides/libraries/private-files
 
 # Files and directories created by pub
@@ -27,6 +28,8 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+=======
+>>>>>>> a627cbe (design and implement archiecture for project)
 # Miscellaneous
 *.class
 *.log

@@ -16,4 +16,7 @@ class AppConstants {
     'Âm nhạc', 'Sự kiện', 'Công nghệ',
     'Khoa học', 'Giáo dục'
   ];
+
+  static String baseLLMUrl = 'http://localhost:11434';
+  static String llmToken = '';
 }

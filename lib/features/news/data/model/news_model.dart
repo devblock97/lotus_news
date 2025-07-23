@@ -2,10 +2,13 @@ import 'package:tma_news/core/mapper/mapper.dart';
 import 'package:tma_news/features/news/domain/entities/news_entity.dart';
 
 class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
-
-  final int id;
-  final String account;
-  final String? title;
+  final double id;
+  final String link;
+  final String source;
+  final String description;
+  final String summary;
+  final List<ImageSource> images;
+  final String title;
   final String? thumbnail;
   final String? shortDescription;
   final String? brandIcon;
@@ -13,10 +16,14 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
 
   const NewsModel({
     required this.id,
-    required this.account,
+    required this.link,
+    required this.source,
+    required this.description,
+    required this.images,
+    required this.summary,
     this.brandIcon,
     this.brandName,
-    this.title,
+    required this.title,
     this.thumbnail,
     this.shortDescription
   });
@@ -24,23 +31,36 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
       id: json['id'],
-      account: json['account'],
+      link: json['link'],
+      source: json['source'],
+      title: json['title'],
+      description: json['description'],
+      summary: json['summary'],
+      images: (json['images'] as List).map((i) => ImageSource.fromJson(i)).toList()
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'account': account
   };
 
   @override
   NewsModel toEntity() {
-    throw NewsEntity(id: id, account: account);
+    throw NewsEntity(id: id, );
   }
 
   @override
   NewsEntity fromEntity(NewsModel model) {
-    return NewsEntity(id: model.id, account: model.account);
+    return NewsEntity(id: model.id);
   }
 
+}
+
+class ImageSource {
+  final String src;
+  const ImageSource({required this.src});
+
+  factory ImageSource.fromJson(Map<String, dynamic> json) {
+    return ImageSource(src: json['src'] ?? '');
+  }
 }

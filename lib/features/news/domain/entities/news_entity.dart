@@ -1,10 +1,9 @@
 import 'package:equatable/equatable.dart';
 
 class NewsEntity extends Equatable {
-  final int id;
-  final String account;
+  final double id;
 
-  const NewsEntity({required this.id, required this.account});
+  const NewsEntity({required this.id,});
 
   @override
   List<Object?> get props => [];

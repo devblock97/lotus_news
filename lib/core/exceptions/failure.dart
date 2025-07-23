@@ -49,7 +49,7 @@ class Failure extends Equatable implements Exception {
 
       case DioExceptionType.connectionError:
         if (dioException.error.runtimeType == SocketException) {
-          message = 'Please check your internet connection';
+          message = 'Không thể kết nối đến máy chủ';
           break;
         } else {
           message = 'Unexpected error occurred';

@@ -21,6 +21,7 @@ class NewsViewModel extends ChangeNotifier {
       final response = await _getNewsUseCase.call(NoParams());
       response.fold(
         (error) {
+          debugPrint('return left: ${error.message}');
           _state = NewsError(error.message);
         },
         (data) {

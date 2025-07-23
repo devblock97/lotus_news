@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../constants/app_constants.dart';
@@ -45,7 +46,8 @@ class Client {
           onReceiveProgress: onReceivedProgress
       );
       return response;
-    } on DioException {
+    } on DioException catch (e, stackTrace) {
+      debugPrint('Stack Trace: $stackTrace exception [$e]');
       rethrow;
     }
   }

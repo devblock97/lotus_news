@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tma_news/core/components/dynamic_device_layout_builder.dart';
+import 'package:tma_news/core/components/device_layout_builder.dart';
+import 'package:tma_news/core/components/error_view.dart';
+import 'package:tma_news/core/components/no_data_view.dart';
 import 'package:tma_news/features/news/presentation/view_model/news_view_model.dart';
+import 'package:tma_news/features/news/presentation/widgets/card_skeleton.dart';
 import 'package:tma_news/features/news/presentation/widgets/news_card.dart';
 import '../view_model/news_state.dart';
 
@@ -32,15 +35,15 @@ class _NewsScreenState extends State<NewsScreen> {
           switch (state.state) {
             case NewsSuccess data:
               final news = data.data;
-              if (news.isEmpty) return Text('Data is empty');
-              return DynamicDeviceLayoutBuilder(
+              if (news.isEmpty) return NoDataView(message: 'Không có dữ liệu về tin tức',);
+              return DeviceLayoutBuilder(
                 mobileView: (_) {
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: const ClampingScrollPhysics(),
                     itemCount: news.length,
                     itemBuilder: (_, index) {
-                      return NewsCard(news: newsList[index % 4]);
+                      return NewsCard(index: index, news: news[index]);
                     },
                   );
                 },
@@ -48,7 +51,7 @@ class _NewsScreenState extends State<NewsScreen> {
                   return GridView.builder(
                     itemCount: news.length,
                     itemBuilder: (_, index) {
-                      return NewsCard(news: newsList[index % 4], isMobile: false,);
+                      return NewsCard(index: index, news: news[index], isPhone: false,);
                     },
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -59,9 +62,9 @@ class _NewsScreenState extends State<NewsScreen> {
                 }
               );
             case NewsError message:
-              return Center(child: Text(message.message ?? ''));
+              return Center(child: ErrorView(message: message.message));
             case NewsLoading _:
-              return Center(child: CircularProgressIndicator());
+              return NewsCardSkeleton();
             default:
               return Center(child: CircularProgressIndicator());
           }

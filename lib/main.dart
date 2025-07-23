@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tma_news/core/theme/app_color.dart';
@@ -10,8 +12,18 @@ import 'core/theme/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global = MyHttpOverrides();
   await init();
   runApp(const App());
+}
+
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+  }
 }
 
 class App extends StatelessWidget {
@@ -44,7 +56,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  bool _isSelected = false;
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -54,8 +65,33 @@ class _MainScreenState extends State<MainScreen> {
           'Social News',
           style: theme.appBarTheme.titleTextStyle
         ),
+        leading: Container(
+          width: 25,
+          height: 25,
+          padding: const EdgeInsets.all(8),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: Image.asset(
+              'assets/images/news_logo.png',
+              fit: BoxFit.cover,
+              colorBlendMode: BlendMode.luminosity,
+            ),
+          ),
+        ),
         centerTitle: true,
         backgroundColor: theme.appBarTheme.backgroundColor,
+        // actions: [
+        //   Consumer<ThemeModeProvider>(
+        //     builder: (BuildContext context, ThemeModeProvider value, Widget? child) {
+        //       return Switch(
+        //           value: value.mode == ThemeMode.dark,
+        //           onChanged: (value) {
+        //             context.read<ThemeModeProvider>().toggle();
+        //           }
+        //       );
+        //     },
+        //   )
+        // ],
       ),
       backgroundColor: theme.scaffoldBackgroundColor,
       body: NewsScreen(),

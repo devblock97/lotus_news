@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class DynamicDeviceLayoutBuilder extends StatelessWidget {
-  const DynamicDeviceLayoutBuilder({
+class DeviceLayoutBuilder extends StatelessWidget {
+  const DeviceLayoutBuilder({
     super.key,
     required this.mobileView,
     required this.tabletView

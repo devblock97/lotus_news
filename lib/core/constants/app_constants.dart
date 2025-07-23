@@ -1,4 +1,6 @@
 class AppConstants {
-  static String baseUrl = 'http://localhost:11434';
+  static String baseUrl = 'https://192.168.0.118:3000';
   static String token = '';
+
+  static String news = '/api/news';
 }

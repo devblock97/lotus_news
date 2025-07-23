@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:tma_news/core/constants/app_constants.dart';
 import 'package:tma_news/core/network/client.dart';
 import 'package:tma_news/features/news/data/model/news_model.dart';
 
@@ -14,9 +16,9 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   @override
   Future<List<NewsModel>> getNews() async {
     try {
-      final response = await _client.get('https://designcode.io/data/transactions.json');
-      
-      List<NewsModel> data = (response.data as List).map((n) => NewsModel.fromJson(n)).toList();
+      final response = await _client.get(AppConstants.news);
+      debugPrint('check response data: ${response.data['news']}');
+      List<NewsModel> data = (response.data['news'] as List).map((n) => NewsModel.fromJson(n)).toList();
 
       return data;
     } catch (_) {

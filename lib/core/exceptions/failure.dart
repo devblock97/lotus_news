@@ -36,7 +36,7 @@ class Failure extends Equatable implements Exception {
         break;
 
       case DioExceptionType.connectionTimeout:
-        message = 'Connection timeout with API server';
+        message = 'Không thể kết nối đến máy chủ. Vui lòng thử lại sau!!';
         break;
 
       case DioExceptionType.receiveTimeout:

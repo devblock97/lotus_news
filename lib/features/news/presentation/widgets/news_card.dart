@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:tma_news/features/news/data/model/news_model.dart';
 
@@ -88,12 +89,14 @@ class NewsCard extends StatelessWidget {
             child: Image.network('https://download.logo.wine/logo/BBC_News/BBC_News-Logo.wine.png'),
           ),
           const SizedBox(width: 5),
-          Text(
-            news.source,
-            style: theme.textTheme.labelSmall,
-            maxLines: 1,
-            softWrap: true,
-            overflow: TextOverflow.ellipsis,
+          Expanded(
+            child: Text(
+              news.source,
+              style: theme.textTheme.labelSmall,
+              maxLines: 1,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           const SizedBox(width: 5),
           Icon(
@@ -128,14 +131,15 @@ class NewsCard extends StatelessWidget {
         children: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.favorite, color: Colors.red,)
+            icon: Icon(Icons.favorite_outline, color: theme.iconTheme.color)
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.comment_rounded, color: Colors.blueAccent)),
+            icon: Icon(Icons.comment_outlined, color: theme.iconTheme.color,)
+          ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.share_rounded)),
+            icon: Icon(Icons.share_rounded, color: theme.iconTheme.color)),
           const Spacer(),
           Text('101 Comments, 48.3k Views', style: theme.textTheme.labelSmall!.copyWith(fontSize: 12),)
         ],

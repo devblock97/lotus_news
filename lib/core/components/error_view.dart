@@ -16,7 +16,10 @@ class ErrorView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset('assets/images/error_img.jpg'),
-          Text(message ?? '', style: theme.textTheme.titleMedium,)
+          Text(
+            message ?? '', style: theme.textTheme.titleMedium,
+            textAlign: TextAlign.center,
+          )
         ],
       ),
     );

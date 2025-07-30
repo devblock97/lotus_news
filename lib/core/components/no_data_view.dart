@@ -16,10 +16,9 @@ class NoDataView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset('assets/images/no_data.jpg'),
-          Text(message ?? '', style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 20)
+          Text(
+            message ?? '', style: theme.textTheme.titleMedium,
+            textAlign: TextAlign.center,
           )
         ],
       ),

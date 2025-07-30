@@ -16,6 +16,13 @@ class AppTheme extends ChangeNotifier{
       backgroundColor: AppColor.white,
       titleTextStyle: _textStyle.copyWith(color: AppColor.black, fontSize: 20, fontWeight: FontWeight.bold)
     ),
+    iconTheme: IconThemeData(
+      color: AppColor.lightText,
+    ),
+    cardTheme: CardThemeData(
+      color: AppColor.black
+    ),
+    primaryColor: AppColor.black,
     textTheme: TextTheme(
       displayLarge: _textStyle.copyWith(color: AppColor.lightText, fontSize: 20, fontWeight: FontWeight.w600),
       displayMedium: _textStyle.copyWith(color: AppColor.lightText, fontSize: 18, fontWeight: FontWeight.w500),
@@ -43,6 +50,10 @@ class AppTheme extends ChangeNotifier{
       backgroundColor: AppColor.black,
       titleTextStyle: _textStyle.copyWith(color: AppColor.white, fontSize: 20, fontWeight: FontWeight.bold)
     ),
+    iconTheme: IconThemeData(
+      color: AppColor.darkText,
+    ),
+    primaryColor: AppColor.white,
     textTheme: TextTheme(
       displayLarge: _textStyle.copyWith(color: AppColor.darkText, fontSize: 20, fontWeight: FontWeight.w600),
       displayMedium: _textStyle.copyWith(color: AppColor.darkText, fontSize: 18, fontWeight: FontWeight.w500),

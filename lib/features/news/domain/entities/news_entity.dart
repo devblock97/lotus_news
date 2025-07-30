@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
 class NewsEntity extends Equatable {
-  final double id;
+  final double? id;
 
   const NewsEntity({required this.id,});
 

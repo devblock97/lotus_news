@@ -16,11 +16,12 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
   @override
   Future<List<NewsModel>> getNews() async {
     try {
-      final response = await _client.get(AppConstants.news);
-      debugPrint('check response data: ${response.data['news']}');
-      List<NewsModel> data = (response.data['news'] as List).map((n) => NewsModel.fromJson(n)).toList();
-
-      return data;
+      final response = await _client.get('https://jsonplaceholder.typicode.com/posts');
+      // debugPrint('check response data: ${response.data['news']}');
+      // List<NewsModel> data = (response.data['news'] as List).map((n) => NewsModel.fromJson(n)).toList();
+      //
+      // return data;
+      return [];
     } catch (_) {
       rethrow;
     }

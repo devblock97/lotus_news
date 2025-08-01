@@ -13,6 +13,7 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
   final String? shortDescription;
   final String? brandIcon;
   final String? brandName;
+  final String? content;
 
   const NewsModel({
     required this.id,
@@ -25,7 +26,8 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
     this.brandName,
     required this.title,
     this.thumbnail,
-    this.shortDescription
+    this.shortDescription,
+    this.content
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {

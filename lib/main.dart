@@ -1,16 +1,23 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
 import 'package:tma_news/core/components/profile_button_app_bar.dart';
 import 'package:tma_news/core/constants/app_constants.dart';
 import 'package:tma_news/core/theme/theme_mode_provider.dart';
 import 'package:tma_news/features/auth/presentation/view_model/auth_view_model.dart';
+import 'package:tma_news/features/news/presentation/view/detail_screen.dart';
 import 'package:tma_news/features/news/presentation/view/news_screen.dart';
+import 'package:tma_news/features/news/presentation/view_model/news_voice_view_model.dart';
+import 'package:tma_news/features/news/presentation/widgets/voice_wave.dart';
 import 'package:tma_news/features/search/presentation/view_model/search_view_model.dart';
 import 'package:tma_news/injector.dart';
 
 import 'core/theme/app_theme.dart';
-import 'features/profile/presentation/view/profile_view.dart';
+import 'features/profile/presentation/view/profile_screen.dart';
 import 'features/search/presentation/view/search_screen.dart';
 
 Future<void> main() async {
@@ -38,7 +45,8 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeModeProvider()),
         ChangeNotifierProvider(create: (_) => SearchViewModel()),
-        ChangeNotifierProvider(create: (_) => AuthViewModel())
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init())
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {
@@ -62,19 +70,36 @@ class MainScreen extends StatefulWidget {
   State<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
 
-  void _startSearch() {
-    setState(() => _isSearching = true);
+  late AnimationController _voiceController;
+
+  List<double> _amplitudes = List.generate(40, (_) => Random().nextDouble() * 0.8);
+
+  @override
+  void initState() {
+    super.initState();
+    _voiceController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500)
+    )..addListener(() {
+      updateWave();
+    });
   }
 
-  void _stopSearch() {
+  void updateWave() {
     setState(() {
-      _isSearching = false;
-      _searchController.clear();
+      _amplitudes = List.generate(40, (_) => Random().nextDouble() * 0.8);
     });
+  }
+
+  @override
+  void dispose() {
+    _voiceController.dispose();
+    context.read<NewsVoiceViewModel>().stop();
+    super.dispose();
   }
 
   late Size size;
@@ -91,6 +116,112 @@ class _MainScreenState extends State<MainScreen> {
           SliverToBoxAdapter(child: NewsScreen(),)
         ],
       ),
+      resizeToAvoidBottomInset: true,
+      bottomNavigationBar: _buildNewsQuickAction(theme),
+    );
+  }
+
+  Widget _buildNewsQuickAction(ThemeData theme) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 12, top: 8, right:  12, bottom: 24),
+      child: Consumer<NewsVoiceViewModel>(
+        builder: (context, state, child) {
+          if (state.state == TtsState.playing) {
+            _voiceController.repeat();
+          } else {
+            _voiceController.stop();
+          }
+          if (state.state == TtsState.playing || state.state == TtsState.paused) {
+            return GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (_) =>
+                    DetailScreen(news: state.news!)));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border(
+                    left: BorderSide(color: theme.primaryColor),
+                    top: BorderSide(color: theme.primaryColor),
+                    right: BorderSide(color: theme.primaryColor),
+                    bottom: BorderSide(color: theme.primaryColor),
+                  )
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Text(
+                        state.news!.title,
+                        style: theme.textTheme.labelSmall,
+                        maxLines: 1,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            if (state.state == TtsState.playing) {
+                              context.read<NewsVoiceViewModel>().pause();
+                              _voiceController.stop();
+                            }
+                            if (state.state == TtsState.paused || state.state == TtsState.stopped) {
+                              context.read<NewsVoiceViewModel>().speak(content);
+                              _voiceController.repeat();
+                            }
+                          },
+                          icon: Icon(
+                            state.state == TtsState.playing
+                              ? Icons.pause
+                              : Icons.play_arrow,
+                            color: theme.primaryColor, size: 25,
+                          )
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: CachedNetworkImage(
+                            imageUrl: state.news!.images.first.src,
+                            width: 50,
+                            height: 50,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        const SizedBox(width: 10,),
+                        Expanded(
+                          child: SizedBox(
+                            height: 50,
+                            width: double.maxFinite,
+                            child: CustomPaint(
+                              painter: VoiceWavePainter(
+                                amplitudes: _amplitudes,
+                                color: Colors.blueAccent.shade700
+                              ),
+                            ),
+                          )
+                        ),
+                        const SizedBox(width: 10,),
+                        IconButton(
+                          onPressed: () {
+                            context.read<NewsVoiceViewModel>().stop();
+                            _voiceController.stop();
+                          },
+                          icon: state.state == TtsState.playing || state.state == TtsState.paused
+                            ? Icon(Icons.stop, color: Colors.redAccent, size: 25,)
+                            : const SizedBox.shrink()
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+          return const SizedBox.shrink();
+        },
+      )
     );
   }
 

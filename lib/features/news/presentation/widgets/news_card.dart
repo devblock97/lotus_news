@@ -17,7 +17,7 @@ class NewsCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: theme.cardColor,
+        color: theme.cardTheme.color,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(color: Colors.grey.shade400, blurRadius: 6, spreadRadius: 2),
@@ -86,7 +86,7 @@ class NewsCard extends StatelessWidget {
           CircleAvatar(
             maxRadius: 10,
             backgroundColor: Colors.white,
-            child: Image.network('https://download.logo.wine/logo/BBC_News/BBC_News-Logo.wine.png'),
+            child: Image.network(news.brandIcon ?? 'https://download.logo.wine/logo/BBC_News/BBC_News-Logo.wine.png'),
           ),
           const SizedBox(width: 5),
           Expanded(

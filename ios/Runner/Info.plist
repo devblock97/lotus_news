@@ -52,5 +52,10 @@
     </dict>
     <key>NSFaceIDUsageDescription</key>
     <string>We use Face ID to protect your data</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to the microphone for speech.</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Speech recognition is used to read out text aloud.</string>
+
 </dict>
 </plist>

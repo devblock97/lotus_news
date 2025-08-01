@@ -20,7 +20,7 @@ class AppTheme extends ChangeNotifier{
       color: AppColor.lightText,
     ),
     cardTheme: CardThemeData(
-      color: AppColor.black
+      color: AppColor.white
     ),
     primaryColor: AppColor.black,
     textTheme: TextTheme(
@@ -52,6 +52,9 @@ class AppTheme extends ChangeNotifier{
     ),
     iconTheme: IconThemeData(
       color: AppColor.darkText,
+    ),
+    cardTheme: CardThemeData(
+      color: AppColor.black
     ),
     primaryColor: AppColor.white,
     textTheme: TextTheme(

@@ -7,6 +7,6 @@ class AppColor {
   static Color black = Colors.black;
   static Color grey = Colors.grey.shade200;
 
-  static Color lightText = Colors.white;
-  static Color darkText = Colors.black;
+  static Color lightText = Colors.black;
+  static Color darkText = Colors.white;
 }

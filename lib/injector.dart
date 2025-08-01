@@ -21,6 +21,8 @@ import 'package:tma_news/features/search/domain/repositories/search_repository.d
 import 'package:tma_news/features/search/domain/usecases/search_usecase.dart';
 import 'package:tma_news/features/search/presentation/view_model/search_view_model.dart';
 
+import 'features/news/presentation/view_model/news_voice_view_model.dart';
+
 final injector = GetIt.instance;
 
 Future<void> init() async {
@@ -33,6 +35,7 @@ Future<void> init() async {
   ..registerLazySingleton<NewsViewModel>(() => NewsViewModel())
   ..registerLazySingleton<SearchViewModel>(() => SearchViewModel())
   ..registerLazySingleton<AuthViewModel>(() => AuthViewModel())
+  ..registerLazySingleton<NewsVoiceViewModel>(() => NewsVoiceViewModel())
 
   // UseCases
   ..registerLazySingleton<GetNewsUseCase>(() => GetNewsUseCase(injector()))

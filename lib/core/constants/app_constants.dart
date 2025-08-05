@@ -8,6 +8,9 @@ class AppConstants {
     return '/api/news/search?q=$keyword';
   }
 
+  static String summarize = 'http://localhost:11434/api/generate';
+
+
   static List<String> categories = [
     'Tất cả', 'Thể thao', 'Chính trị',
     'Âm nhạc', 'Sự kiện', 'Công nghệ',

@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:tma_news/core/components/profile_button_app_bar.dart';
 import 'package:tma_news/core/constants/app_constants.dart';
 import 'package:tma_news/core/theme/theme_mode_provider.dart';
+import 'package:tma_news/features/assistant/presentation/view_model/assistant_view_model.dart';
 import 'package:tma_news/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:tma_news/features/news/presentation/view/detail_screen.dart';
 import 'package:tma_news/features/news/presentation/view/news_screen.dart';
@@ -46,7 +47,8 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeModeProvider()),
         ChangeNotifierProvider(create: (_) => SearchViewModel()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
-        ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init())
+        ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init()),
+        ChangeNotifierProvider(create: (_) => AssistantViewModel())
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {

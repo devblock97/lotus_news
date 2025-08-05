@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:tma_news/core/theme/app_color.dart';
+import 'package:tma_news/features/assistant/presentation/view_model/assistant_view_model.dart';
 import 'package:tma_news/features/news/data/model/news_model.dart';
 import 'package:tma_news/features/news/presentation/view_model/news_voice_view_model.dart';
 import 'package:tma_news/features/news/presentation/widgets/voice_wave.dart';
+
+import '../widgets/summarize_button.dart';
+import '../widgets/summarize_content.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key, required this.news});
@@ -72,6 +76,30 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
           Text(widget.news.title, style: theme.textTheme.titleSmall,),
           const SizedBox(height: 5,),
           _buildVoice(theme, widget.news.content ?? ''),
+          const SizedBox(height: 5,),
+          Consumer<AssistantViewModel>(
+            builder: (_, state, child) {
+              switch (state.state) {
+                case SummaryStreaming data:
+                  return AnimatedGradientBorder(
+                    text: state.streamedText,
+                    isStreaming: data.data.done ?? false
+                  );
+                case SummaryLoading _:
+                  return const Center(child: CircularProgressIndicator(),);
+                case SummaryError _:
+                  return const Center(child: Text('Something went wrong'),);
+                default:
+                  return SummarizeAnimatedButton(
+                    onPressed: () {
+                      if (widget.news.content != null) {
+                        context.read<AssistantViewModel>().summaryStream(widget.news.content!);
+                      }
+                    },
+                  );
+              }
+            },
+          ),
           const SizedBox(height: 5,),
           Text(widget.news.content?.trim() ?? '', style: theme.textTheme.bodySmall,)
         ],
@@ -259,4 +287,5 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
       ),
     );
   }
+
 }

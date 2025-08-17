@@ -8,7 +8,7 @@ class AppConstants {
     return '/api/news/search?q=$keyword';
   }
 
-  static String summarize = 'http://localhost:11434/api/generate';
+  static String assistant = 'http://localhost:11434/api/generate';
 
 
   static List<String> categories = [

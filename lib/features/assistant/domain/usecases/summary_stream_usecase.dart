@@ -4,12 +4,12 @@ import 'package:tma_news/core/usecases/usecase.dart';
 import 'package:tma_news/features/assistant/domain/repositories/summary_repository.dart';
 import 'package:tma_news/features/assistant/domain/usecases/summary_usecase.dart';
 
-class SummaryStreamUseCase extends StreamUseCase<String, GetSummaryParam> {
+class SummaryStreamUseCase extends StreamUseCase<String, AssistantParam> {
   final SummaryRepository _repository;
   SummaryStreamUseCase(this._repository);
 
   @override
-  Stream<Either<Failure, String>> call(GetSummaryParam params) {
+  Stream<Either<Failure, String>> call(AssistantParam params) {
     return _repository.summarizeStream(params.param);
   }
 

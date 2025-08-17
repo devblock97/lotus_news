@@ -2,12 +2,19 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tma_news/core/network/client.dart';
 import 'package:tma_news/core/network/network_info.dart';
+import 'package:tma_news/features/assistant/data/datasource/local/chat_local_data_source.dart';
 import 'package:tma_news/features/assistant/data/datasource/remote/assistant_remote_data_source.dart';
-import 'package:tma_news/features/assistant/data/repositories/summary_repository.dart';
+import 'package:tma_news/features/assistant/data/datasource/remote/chat_remote_data_source.dart';
+import 'package:tma_news/features/assistant/data/repositories/chat_repository_impl.dart';
+import 'package:tma_news/features/assistant/data/repositories/summary_repository_impl.dart';
+import 'package:tma_news/features/assistant/domain/repositories/chat_repository.dart';
 import 'package:tma_news/features/assistant/domain/repositories/summary_repository.dart';
+import 'package:tma_news/features/assistant/domain/usecases/add_message_usecase.dart';
+import 'package:tma_news/features/assistant/domain/usecases/send_message_usecase.dart';
 import 'package:tma_news/features/assistant/domain/usecases/summary_stream_usecase.dart';
 import 'package:tma_news/features/assistant/domain/usecases/summary_usecase.dart';
 import 'package:tma_news/features/assistant/presentation/view_model/assistant_view_model.dart';
+import 'package:tma_news/features/assistant/presentation/view_model/chat_view_model.dart';
 import 'package:tma_news/features/auth/data/datasource/auth_local_data_source.dart';
 import 'package:tma_news/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:tma_news/features/auth/domain/repositories/auth_repository.dart';
@@ -43,6 +50,7 @@ Future<void> init() async {
   ..registerLazySingleton<AuthViewModel>(() => AuthViewModel())
   ..registerLazySingleton<NewsVoiceViewModel>(() => NewsVoiceViewModel())
   ..registerLazySingleton<AssistantViewModel>(() => AssistantViewModel())
+  ..registerLazySingleton<ChatViewModel>(() => ChatViewModel())
 
   // UseCases
   ..registerLazySingleton<GetNewsUseCase>(() => GetNewsUseCase(injector()))
@@ -52,21 +60,26 @@ Future<void> init() async {
   ..registerLazySingleton<SignOutUseCase>(() => SignOutUseCase(injector()))
   ..registerLazySingleton<SummaryUseCase>(() => SummaryUseCase(injector()))
   ..registerLazySingleton<SummaryStreamUseCase>(() => SummaryStreamUseCase(injector()))
+  ..registerLazySingleton<ChatUseCase>(() => ChatUseCase(injector()))
+  ..registerLazySingleton<AddMessageUseCase>(() => AddMessageUseCase(injector()))
 
   // Repositories
   ..registerLazySingleton<NewsRepository>(() => NewsRepositoryImpl(localDataSource: injector(), remoteDataSource: injector(), networkInfo: injector()))
   ..registerLazySingleton<SearchRepository>(() => SearchRepositoryImpl(injector()))
   ..registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(injector()))
   ..registerLazySingleton<SummaryRepository>(() => SummaryRepositoryImpl(injector()))
+  ..registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl(injector(), injector()))
 
   // Remote DataSource
   ..registerLazySingleton<NewsRemoteDataSource>(() => NewsRemoteDataSourceImpl(injector()))
   ..registerLazySingleton<SearchRemoteDataSource>(() => SearchRemoteDataSourceImpl(injector()))
   ..registerLazySingleton<AssistantRemoteDataSource>(() => AssistantRemoteDataSourceImpl(injector()))
+  ..registerLazySingleton<ChatRemoteDataSource>(() => ChatRemoteDataSourceImpl(injector()))
 
   // Local DataSource
   ..registerLazySingleton<NewsLocalDatasource>(() => NewsLocalDataSourceImpl())
   ..registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl())
+  ..registerLazySingleton<ChatLocalDataSource>(() => ChatLocalDataSourceImpl())
     
   // Network
   ..registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(injector()))

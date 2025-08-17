@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tma_news/core/theme/theme_mode_provider.dart';
+import 'package:tma_news/features/assistant/presentation/view/chat_screen.dart';
 import 'package:tma_news/features/auth/presentation/view/auth_screen.dart';
 import 'package:tma_news/features/auth/presentation/view_model/auth_view_model.dart';
 
@@ -100,6 +101,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               },
             ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen()));
+            },
+            leading: Icon(Icons.mark_chat_unread_outlined),
+            title: Text('Hỏi đáp'),
+            trailing: Icon(Icons.chevron_right),
           ),
           ListTile(
             onTap: () {

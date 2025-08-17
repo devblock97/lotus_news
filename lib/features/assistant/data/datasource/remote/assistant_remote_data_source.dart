@@ -24,7 +24,7 @@ class AssistantRemoteDataSourceImpl implements AssistantRemoteDataSource {
   Future<AssistantResponse> summarize(AssistantRequest param) async {
     try {
       final response = await _client.post(
-        AppConstants.summarize,
+        AppConstants.assistant,
         data: jsonEncode(param.toJson()),
 
       );
@@ -38,7 +38,7 @@ class AssistantRemoteDataSourceImpl implements AssistantRemoteDataSource {
   Stream<String> summarizeStream(AssistantRequest param) async* {
     try {
       final response = await _client.post(
-        AppConstants.summarize,
+        AppConstants.assistant,
         data: jsonEncode(param.toJson()),
         options: Options(
           headers: {

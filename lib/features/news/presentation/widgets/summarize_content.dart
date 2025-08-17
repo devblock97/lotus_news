@@ -23,7 +23,7 @@ class _AnimatedGradientBorderState extends State<AnimatedGradientBorder> with Si
     _controller = AnimationController(
       duration: const Duration(seconds: 3),
       vsync: this,
-    )..repeat(); // repeat indefinitely for animated border
+    )..repeat();
   }
 
   @override
@@ -65,6 +65,36 @@ class _AnimatedGradientBorderState extends State<AnimatedGradientBorder> with Si
           ),
         );
       },
+    );
+  }
+}
+
+class MovableWidget extends StatefulWidget {
+  final Widget child;
+  const MovableWidget({super.key, required this.child});
+
+  @override
+  State<MovableWidget> createState() => _MovableWidgetState();
+}
+
+class _MovableWidgetState extends State<MovableWidget> {
+  Offset position = const Offset(30, 30); // Initial position
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
+    return Positioned(
+      left: position.dx,
+      top: position.dy,
+      child: GestureDetector(
+        onPanUpdate: (details) {
+          setState(() {
+            position += details.delta;
+          });
+        },
+        child: widget.child,
+      ),
     );
   }
 }

@@ -25,7 +25,7 @@ class AssistantViewModel extends ChangeNotifier {
           'Tóm tắt nội dụng này "$prompt" bằng tiếng Việt dưới 5 câu '
           'và không chứa bất kỳ ký tự đặc biệt nào trong nội dụng tóm tắt';
       final AssistantRequest param = AssistantRequest(prompt: processedPrompt);
-      final response = await summaryUseCase.call(GetSummaryParam(param));
+      final response = await summaryUseCase.call(AssistantParam(param));
       response.fold(
         (error) {
           _state = SummaryError();
@@ -51,7 +51,7 @@ class AssistantViewModel extends ChangeNotifier {
           'và không thêm câu "Dưới đây là bản tóm tắt nội dung..."'
           'và không chứa bất kỳ ký tự đặc biệt nào trong nội dụng tóm tắt';
       final AssistantRequest param = AssistantRequest(prompt: processedPrompt, stream: true);
-      final stream = summaryStreamUseCase.call(GetSummaryParam(param));
+      final stream = summaryStreamUseCase.call(AssistantParam(param));
       stream.listen(
         (event) {
           event.fold(

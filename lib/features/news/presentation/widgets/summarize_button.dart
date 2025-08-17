@@ -19,7 +19,7 @@ class _SummarizeAnimatedButtonState extends State<SummarizeAnimatedButton> with 
     super.initState();
     _controller = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: 2000)
+        duration: const Duration(milliseconds: 1000)
     )..repeat();
   }
 
@@ -54,7 +54,18 @@ class _SummarizeAnimatedButtonState extends State<SummarizeAnimatedButton> with 
             ),
             child: TextButton(
                 onPressed: widget.onPressed,
-                child: Text('Summarize', style: theme.textTheme.labelSmall)
+                child: ShaderMask(
+                  shaderCallback: (bounds) {
+                    return LinearGradient(
+                      colors: [Colors.blue, Colors.purple, Colors.red],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      transform: GradientRotation(_controller.value * 2 * pi)
+                    ).createShader(bounds);
+                  },
+                  blendMode: BlendMode.srcIn,
+                  child: Text('Summarize'),
+                )
             ),
           ),
         );

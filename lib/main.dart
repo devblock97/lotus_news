@@ -4,11 +4,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:tma_news/core/components/profile_button_app_bar.dart';
 import 'package:tma_news/core/constants/app_constants.dart';
 import 'package:tma_news/core/theme/theme_mode_provider.dart';
+import 'package:tma_news/features/assistant/data/model/chat_message.dart';
 import 'package:tma_news/features/assistant/presentation/view_model/assistant_view_model.dart';
+import 'package:tma_news/features/assistant/presentation/view_model/chat_view_model.dart';
 import 'package:tma_news/features/auth/presentation/view_model/auth_view_model.dart';
 import 'package:tma_news/features/news/presentation/view/detail_screen.dart';
 import 'package:tma_news/features/news/presentation/view/news_screen.dart';
@@ -18,11 +22,15 @@ import 'package:tma_news/features/search/presentation/view_model/search_view_mod
 import 'package:tma_news/injector.dart';
 
 import 'core/theme/app_theme.dart';
+import 'features/news/presentation/widgets/summarize_content.dart';
 import 'features/profile/presentation/view/profile_screen.dart';
 import 'features/search/presentation/view/search_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ChatMessageAdapter());
+  await Hive.openBox<ChatMessage>('chatBox');
   HttpOverrides.global = MyHttpOverrides();
   await init();
   runApp(const App());
@@ -48,7 +56,8 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SearchViewModel()),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init()),
-        ChangeNotifierProvider(create: (_) => AssistantViewModel())
+        ChangeNotifierProvider(create: (_) => AssistantViewModel()),
+        ChangeNotifierProvider(create: (_) => ChatViewModel())
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {

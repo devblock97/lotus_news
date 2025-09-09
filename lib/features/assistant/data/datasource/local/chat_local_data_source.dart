@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tma_news/features/assistant/data/model/chat_message.dart';
+import 'package:lotus_news/features/assistant/data/model/chat_message.dart';
 
 abstract class ChatLocalDataSource {
   Future<void> addMessage(ChatMessage message) => throw UnimplementedError('Stub');

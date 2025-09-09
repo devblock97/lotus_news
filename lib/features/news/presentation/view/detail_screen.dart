@@ -4,11 +4,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:tma_news/core/theme/app_color.dart';
-import 'package:tma_news/features/assistant/presentation/view_model/assistant_view_model.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
-import 'package:tma_news/features/news/presentation/view_model/news_voice_view_model.dart';
-import 'package:tma_news/features/news/presentation/widgets/voice_wave.dart';
+import 'package:lotus_news/core/theme/app_color.dart';
+import 'package:lotus_news/features/assistant/presentation/view_model/assistant_view_model.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/presentation/view_model/news_voice_view_model.dart';
+import 'package:lotus_news/features/news/presentation/widgets/voice_wave.dart';
 
 import '../widgets/summarize_button.dart';
 import '../widgets/summarize_content.dart';

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tma_news/core/components/device_layout_builder.dart';
-import 'package:tma_news/core/components/error_view.dart';
-import 'package:tma_news/core/components/no_data_view.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
-import 'package:tma_news/features/news/presentation/view/detail_screen.dart';
-import 'package:tma_news/features/news/presentation/view_model/news_view_model.dart';
-import 'package:tma_news/features/news/presentation/widgets/card_skeleton.dart';
-import 'package:tma_news/features/news/presentation/widgets/news_card.dart';
+import 'package:lotus_news/core/components/device_layout_builder.dart';
+import 'package:lotus_news/core/components/error_view.dart';
+import 'package:lotus_news/core/components/no_data_view.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/presentation/view/detail_screen.dart';
+import 'package:lotus_news/features/news/presentation/view_model/news_view_model.dart';
+import 'package:lotus_news/features/news/presentation/widgets/card_skeleton.dart';
+import 'package:lotus_news/features/news/presentation/widgets/news_card.dart';
 import '../view_model/news_state.dart';
 
 class NewsScreen extends StatefulWidget {

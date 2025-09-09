@@ -1,10 +1,10 @@
 
 import 'package:flutter/widgets.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_request.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_response.dart';
-import 'package:tma_news/features/assistant/domain/usecases/summary_stream_usecase.dart';
-import 'package:tma_news/features/assistant/domain/usecases/summary_usecase.dart';
-import 'package:tma_news/injector.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
+import 'package:lotus_news/features/assistant/domain/usecases/summary_stream_usecase.dart';
+import 'package:lotus_news/features/assistant/domain/usecases/summary_usecase.dart';
+import 'package:lotus_news/injector.dart';
 
 class AssistantViewModel extends ChangeNotifier {
 

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
-import 'package:tma_news/core/usecases/usecase.dart';
-import 'package:tma_news/features/news/domain/usecases/get_news_by_id_usecase.dart';
-import 'package:tma_news/features/news/domain/usecases/get_news_usecase.dart';
-import 'package:tma_news/injector.dart';
+import 'package:lotus_news/core/usecases/usecase.dart';
+import 'package:lotus_news/features/news/domain/usecases/get_news_by_id_usecase.dart';
+import 'package:lotus_news/features/news/domain/usecases/get_news_usecase.dart';
+import 'package:lotus_news/injector.dart';
 
 import 'news_state.dart';
 

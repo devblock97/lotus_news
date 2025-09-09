@@ -26,7 +26,6 @@ class _SummarizeAnimatedButtonState extends State<SummarizeAnimatedButton> with 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
   }
 
   @override

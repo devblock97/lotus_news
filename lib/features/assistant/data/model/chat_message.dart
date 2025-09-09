@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_response.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
 part 'chat_message.g.dart';
 
 @HiveType(typeId: 0)

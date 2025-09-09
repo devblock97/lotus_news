@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 enum TtsState { playing, stopped, paused, continued }
 

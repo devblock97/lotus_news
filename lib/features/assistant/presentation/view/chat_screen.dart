@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
-import 'package:tma_news/features/assistant/presentation/view_model/chat_view_model.dart';
+import 'package:lotus_news/features/assistant/presentation/view_model/chat_view_model.dart';
 
 import '../../data/model/chat_message.dart';
 

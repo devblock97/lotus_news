@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tma_news/features/search/domain/usecases/search_usecase.dart';
-import 'package:tma_news/features/search/presentation/view_model/search_state.dart';
-import 'package:tma_news/injector.dart';
+import 'package:lotus_news/features/search/domain/usecases/search_usecase.dart';
+import 'package:lotus_news/features/search/presentation/view_model/search_state.dart';
+import 'package:lotus_news/injector.dart';
 
 class SearchViewModel extends ChangeNotifier {
 

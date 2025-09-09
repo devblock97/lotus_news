@@ -1,5 +1,5 @@
-import 'package:tma_news/core/mapper/mapper.dart';
-import 'package:tma_news/features/news/domain/entities/news_entity.dart';
+import 'package:lotus_news/core/mapper/mapper.dart';
+import 'package:lotus_news/features/news/domain/entities/news_entity.dart';
 
 class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
   final double id;

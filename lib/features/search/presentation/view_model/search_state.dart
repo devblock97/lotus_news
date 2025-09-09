@@ -1,4 +1,4 @@
-import 'package:tma_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 sealed class SearchState {
   const SearchState();

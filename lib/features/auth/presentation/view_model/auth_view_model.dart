@@ -1,9 +1,9 @@
 import 'package:flutter/widgets.dart';
-import 'package:tma_news/core/usecases/usecase.dart';
-import 'package:tma_news/features/auth/domain/usecases/authenticated_usecase.dart';
-import 'package:tma_news/features/auth/domain/usecases/sign_in_usecase.dart';
-import 'package:tma_news/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:tma_news/injector.dart';
+import 'package:lotus_news/core/usecases/usecase.dart';
+import 'package:lotus_news/features/auth/domain/usecases/authenticated_usecase.dart';
+import 'package:lotus_news/features/auth/domain/usecases/sign_in_usecase.dart';
+import 'package:lotus_news/features/auth/domain/usecases/sign_out_usecase.dart';
+import 'package:lotus_news/injector.dart';
 
 class AuthViewModel extends ChangeNotifier {
 

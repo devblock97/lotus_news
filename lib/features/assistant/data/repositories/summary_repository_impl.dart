@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/src/either.dart';
 
-import 'package:tma_news/core/exceptions/failure.dart';
-import 'package:tma_news/features/assistant/data/datasource/remote/assistant_remote_data_source.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_request.dart';
+import 'package:lotus_news/core/exceptions/failure.dart';
+import 'package:lotus_news/features/assistant/data/datasource/remote/assistant_remote_data_source.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
 
-import 'package:tma_news/features/assistant/data/model/assistant_response.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
 
 import '../../domain/repositories/summary_repository.dart';
 

@@ -1,8 +1,8 @@
 import 'package:fpdart/src/either.dart';
-import 'package:tma_news/core/exceptions/failure.dart';
-import 'package:tma_news/core/usecases/usecase.dart';
-import 'package:tma_news/features/assistant/data/model/chat_message.dart';
-import 'package:tma_news/features/assistant/domain/repositories/chat_repository.dart';
+import 'package:lotus_news/core/exceptions/failure.dart';
+import 'package:lotus_news/core/usecases/usecase.dart';
+import 'package:lotus_news/features/assistant/data/model/chat_message.dart';
+import 'package:lotus_news/features/assistant/domain/repositories/chat_repository.dart';
 
 class AddMessageUseCase extends UseCase<void, AddMessageParam> {
   final ChatRepository _repository;

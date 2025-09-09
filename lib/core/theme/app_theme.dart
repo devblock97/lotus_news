@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tma_news/core/theme/app_color.dart';
+import 'package:lotus_news/core/theme/app_color.dart';
 
 class AppTheme extends ChangeNotifier{
 

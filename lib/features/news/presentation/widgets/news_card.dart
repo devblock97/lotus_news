@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 class NewsCard extends StatelessWidget {
   NewsCard({super.key, required this.news, this.isPhone = true, required this.index});

@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:tma_news/core/constants/app_constants.dart';
-import 'package:tma_news/core/network/client.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/core/constants/app_constants.dart';
+import 'package:lotus_news/core/network/client.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 abstract class NewsRemoteDataSource {
   Future<List<NewsModel>> getNews() => throw UnimplementedError('Stub');

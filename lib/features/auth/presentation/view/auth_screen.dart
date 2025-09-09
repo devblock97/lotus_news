@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tma_news/features/auth/presentation/view_model/auth_view_model.dart';
-import 'package:tma_news/features/news/presentation/view/news_screen.dart';
-import 'package:tma_news/main.dart';
+import 'package:lotus_news/features/auth/presentation/view_model/auth_view_model.dart';
+import 'package:lotus_news/features/news/presentation/view/news_screen.dart';
+import 'package:lotus_news/main.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});

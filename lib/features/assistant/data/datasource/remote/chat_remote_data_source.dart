@@ -3,10 +3,10 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:tma_news/core/constants/app_constants.dart';
-import 'package:tma_news/core/network/client.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_request.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_response.dart';
+import 'package:lotus_news/core/constants/app_constants.dart';
+import 'package:lotus_news/core/network/client.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
 
 abstract class ChatRemoteDataSource {
   Stream<AssistantResponse> send(AssistantRequest param) => throw UnimplementedError('Stub');

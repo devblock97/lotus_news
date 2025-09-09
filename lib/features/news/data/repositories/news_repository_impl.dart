@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:tma_news/core/exceptions/failure.dart';
-import 'package:tma_news/core/network/network_info.dart';
-import 'package:tma_news/features/news/data/datasource/news_local_datasource.dart';
-import 'package:tma_news/features/news/data/datasource/news_remote_datasource.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
-import 'package:tma_news/features/news/domain/repositories/news_repository.dart';
+import 'package:lotus_news/core/exceptions/failure.dart';
+import 'package:lotus_news/core/network/network_info.dart';
+import 'package:lotus_news/features/news/data/datasource/news_local_datasource.dart';
+import 'package:lotus_news/features/news/data/datasource/news_remote_datasource.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/domain/repositories/news_repository.dart';
 import 'dart:developer' as developer;
 
 class NewsRepositoryImpl implements NewsRepository {

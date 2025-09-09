@@ -1,6 +1,6 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:tma_news/core/exceptions/failure.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/core/exceptions/failure.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 abstract class NewsRepository {
   Future<Either<Failure, List<NewsModel>>> getNews() =>

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 abstract class NewsLocalDatasource {
   Future<void> saveNews(List<NewsModel> news) =>

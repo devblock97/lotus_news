@@ -1,6 +1,6 @@
-import 'package:tma_news/core/constants/app_constants.dart' show AppConstants;
-import 'package:tma_news/core/network/client.dart';
-import 'package:tma_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/core/constants/app_constants.dart' show AppConstants;
+import 'package:lotus_news/core/network/client.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 abstract class SearchRemoteDataSource { 
   Future<List<NewsModel>> search(String keyword) => throw UnimplementedError('Stub');

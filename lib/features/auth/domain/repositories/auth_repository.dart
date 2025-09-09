@@ -1,5 +1,5 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:tma_news/core/exceptions/failure.dart';
+import 'package:lotus_news/core/exceptions/failure.dart';
 
 abstract class AuthRepository {
 

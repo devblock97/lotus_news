@@ -1,13 +1,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_request.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_response.dart';
-import 'package:tma_news/features/assistant/domain/usecases/add_message_usecase.dart';
-import 'package:tma_news/features/assistant/domain/usecases/send_message_usecase.dart';
-import 'package:tma_news/features/assistant/domain/usecases/summary_usecase.dart';
-import 'package:tma_news/injector.dart';
-import 'package:tma_news/features/assistant/data/model/chat_message.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
+import 'package:lotus_news/features/assistant/domain/usecases/add_message_usecase.dart';
+import 'package:lotus_news/features/assistant/domain/usecases/send_message_usecase.dart';
+import 'package:lotus_news/features/assistant/domain/usecases/summary_usecase.dart';
+import 'package:lotus_news/injector.dart';
+import 'package:lotus_news/features/assistant/data/model/chat_message.dart';
 
 class ChatViewModel extends ChangeNotifier {
 

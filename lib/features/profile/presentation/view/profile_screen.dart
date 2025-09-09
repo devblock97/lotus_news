@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tma_news/core/theme/theme_mode_provider.dart';
-import 'package:tma_news/features/assistant/presentation/view/chat_screen.dart';
-import 'package:tma_news/features/auth/presentation/view/auth_screen.dart';
-import 'package:tma_news/features/auth/presentation/view_model/auth_view_model.dart';
+import 'package:lotus_news/core/theme/theme_mode_provider.dart';
+import 'package:lotus_news/features/assistant/presentation/view/chat_screen.dart';
+import 'package:lotus_news/features/auth/presentation/view/auth_screen.dart';
+import 'package:lotus_news/features/auth/presentation/view_model/auth_view_model.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

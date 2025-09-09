@@ -1,9 +1,9 @@
 
 import 'package:fpdart/fpdart.dart';
-import 'package:tma_news/core/exceptions/failure.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_request.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_response.dart';
-import 'package:tma_news/features/assistant/data/model/chat_message.dart';
+import 'package:lotus_news/core/exceptions/failure.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
+import 'package:lotus_news/features/assistant/data/model/chat_message.dart';
 
 abstract class ChatRepository {
   Stream<Either<Failure, AssistantResponse>> send(AssistantRequest param) =>

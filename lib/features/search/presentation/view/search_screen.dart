@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:tma_news/core/components/no_data_view.dart';
-import 'package:tma_news/features/search/presentation/view_model/search_state.dart';
-import 'package:tma_news/features/search/presentation/view_model/search_view_model.dart';
+import 'package:lotus_news/core/components/no_data_view.dart';
+import 'package:lotus_news/features/search/presentation/view_model/search_state.dart';
+import 'package:lotus_news/features/search/presentation/view_model/search_view_model.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});

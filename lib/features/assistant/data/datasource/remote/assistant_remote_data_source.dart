@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
-import 'package:tma_news/core/constants/app_constants.dart';
-import 'package:tma_news/core/network/client.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_request.dart';
-import 'package:tma_news/features/assistant/data/model/assistant_response.dart';
+import 'package:lotus_news/core/constants/app_constants.dart';
+import 'package:lotus_news/core/network/client.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
+import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
 
 abstract class AssistantRemoteDataSource {
   Future<AssistantResponse> summarize(AssistantRequest param) => throw UnimplementedError('Stub');

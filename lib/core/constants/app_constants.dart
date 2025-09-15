@@ -1,8 +1,8 @@
 class AppConstants {
-  static String baseUrl = 'https://192.168.0.118:3000';
+  static String baseUrl = 'http://10.0.2.2:3000';
   static String token = '';
 
-  static String news = '/api/news';
+  static String posts = '/api/posts';
 
   static String search(String keyword) {
     return '/api/news/search?q=$keyword';
@@ -16,4 +16,7 @@ class AppConstants {
     'Âm nhạc', 'Sự kiện', 'Công nghệ',
     'Khoa học', 'Giáo dục'
   ];
+
+  static String baseLLMUrl = 'http://localhost:11434';
+  static String llmToken = '';
 }

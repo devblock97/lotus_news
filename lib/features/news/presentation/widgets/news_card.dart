@@ -24,6 +24,7 @@ class NewsCard extends StatelessWidget {
         ]
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildThumbnail(context),
           const SizedBox(height: 5,),
@@ -46,9 +47,7 @@ class NewsCard extends StatelessWidget {
         topRight: Radius.circular(16),
       ),
       child: CachedNetworkImage(
-        imageUrl: news.images.isEmpty
-            ? index % 2 == 0 ? 'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0' : 'https://tse1.mm.bing.net/th?q=Cnn%2010%20October%205%202025%20Schedule&w=1280&h=720&c=5&rs=1&p=0'
-            : news.images.first.src,
+        imageUrl: 'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
         height: MediaQuery.of(context).size.height * (isPhone ? 0.25 : 0.45),
         width: MediaQuery.of(context).size.width,
         fit: BoxFit.fill,
@@ -91,7 +90,7 @@ class NewsCard extends StatelessWidget {
           const SizedBox(width: 5),
           Expanded(
             child: Text(
-              news.source,
+              news.body,
               style: theme.textTheme.labelSmall,
               maxLines: 1,
               softWrap: true,
@@ -113,7 +112,7 @@ class NewsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Text(
-        news.summary,
+        news.shortDescription ?? '',
         maxLines: isPhone ? 3 : 4,
         softWrap: true,
         overflow: TextOverflow.ellipsis,

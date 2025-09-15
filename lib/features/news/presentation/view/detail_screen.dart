@@ -71,7 +71,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
         children: [
           _buildHeader(theme),
           const SizedBox(height: 15,),
-          Text(widget.news.summary, style: theme.textTheme.titleSmall,),
+          Text(widget.news.summary ?? '', style: theme.textTheme.titleSmall,),
           _buildImage(size),
           Text(widget.news.title, style: theme.textTheme.titleSmall,),
           const SizedBox(height: 5,),
@@ -138,7 +138,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.news.source, style: theme.textTheme.titleSmall,),
+                Text(widget.news.body, style: theme.textTheme.titleSmall,),
                 Text(
                   DateFormat('dd/MM/yyyy').format(DateTime.now()),
                   style: theme.textTheme.labelSmall,
@@ -170,7 +170,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(
-          imageUrl: widget.news.images.first.src,
+          imageUrl: 'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
           height: size.height * 0.3,
           fit: BoxFit.cover,
         )

@@ -5,11 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-<<<<<<< HEAD
 	<string>Lotus News</string>
-=======
-	<string>Tma News</string>
->>>>>>> a627cbe (design and implement archiecture for project)
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -54,15 +50,12 @@
         <key>NSAllowsArbitraryLoads</key>
         <true/>
     </dict>
-<<<<<<< HEAD
     <key>NSFaceIDUsageDescription</key>
     <string>We use Face ID to protect your data</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>We need access to the microphone for speech.</string>
     <key>NSSpeechRecognitionUsageDescription</key>
     <string>Speech recognition is used to read out text aloud.</string>
-=======
->>>>>>> a627cbe (design and implement archiecture for project)
 
 </dict>
 </plist>

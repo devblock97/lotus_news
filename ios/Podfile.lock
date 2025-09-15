@@ -9,14 +9,11 @@ PODS:
   - flutter_inappwebview_ios/Core (0.0.1):
     - Flutter
     - OrderedSet (~> 6.0.3)
-<<<<<<< HEAD
   - flutter_tts (0.0.1):
     - Flutter
   - local_auth_darwin (0.0.1):
     - Flutter
     - FlutterMacOS
-=======
->>>>>>> a627cbe (design and implement archiecture for project)
   - OrderedSet (6.0.3)
   - path_provider_foundation (0.0.1):
     - Flutter
@@ -24,12 +21,9 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
-<<<<<<< HEAD
   - sqflite_darwin (0.0.4):
     - Flutter
     - FlutterMacOS
-=======
->>>>>>> a627cbe (design and implement archiecture for project)
   - video_player_avfoundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -38,16 +32,11 @@ DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - Flutter (from `Flutter`)
   - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
-<<<<<<< HEAD
   - flutter_tts (from `.symlinks/plugins/flutter_tts/ios`)
   - local_auth_darwin (from `.symlinks/plugins/local_auth_darwin/darwin`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
-=======
-  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
-  - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
->>>>>>> a627cbe (design and implement archiecture for project)
   - video_player_avfoundation (from `.symlinks/plugins/video_player_avfoundation/darwin`)
 
 SPEC REPOS:
@@ -61,28 +50,21 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_inappwebview_ios:
     :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
-<<<<<<< HEAD
   flutter_tts:
     :path: ".symlinks/plugins/flutter_tts/ios"
   local_auth_darwin:
     :path: ".symlinks/plugins/local_auth_darwin/darwin"
-=======
->>>>>>> a627cbe (design and implement archiecture for project)
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
-<<<<<<< HEAD
   sqflite_darwin:
     :path: ".symlinks/plugins/sqflite_darwin/darwin"
-=======
->>>>>>> a627cbe (design and implement archiecture for project)
   video_player_avfoundation:
     :path: ".symlinks/plugins/video_player_avfoundation/darwin"
 
 SPEC CHECKSUMS:
   connectivity_plus: cb623214f4e1f6ef8fe7403d580fdad517d2f7dd
-<<<<<<< HEAD
   Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
   flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
   flutter_tts: b88dbc8655d3dc961bc4a796e4e16a4cc1795833
@@ -94,15 +76,5 @@ SPEC CHECKSUMS:
   video_player_avfoundation: 2cef49524dd1f16c5300b9cd6efd9611ce03639b
 
 PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
-=======
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  flutter_inappwebview_ios: b89ba3482b96fb25e00c967aae065701b66e9b99
-  OrderedSet: e539b66b644ff081c73a262d24ad552a69be3a94
-  path_provider_foundation: 080d55be775b7414fd5a5ef3ac137b97b097e564
-  shared_preferences_foundation: 9e1978ff2562383bd5676f64ec4e9aa8fa06a6f7
-  video_player_avfoundation: 2cef49524dd1f16c5300b9cd6efd9611ce03639b
-
-PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
->>>>>>> a627cbe (design and implement archiecture for project)
 
 COCOAPODS: 1.16.2

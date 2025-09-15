@@ -180,7 +180,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                               _voiceController.stop();
                             }
                             if (state.state == TtsState.paused || state.state == TtsState.stopped) {
-                              context.read<NewsVoiceViewModel>().speak(content);
+                              // context.read<NewsVoiceViewModel>().speak(content);
                               _voiceController.repeat();
                             }
                           },
@@ -194,7 +194,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedNetworkImage(
-                            imageUrl: state.news!.images.first.src,
+                            imageUrl: 'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
                             width: 50,
                             height: 50,
                             fit: BoxFit.contain,

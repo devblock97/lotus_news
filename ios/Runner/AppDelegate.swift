@@ -1,9 +1,6 @@
 import Flutter
 import UIKit
-<<<<<<< HEAD
 import AVFoundation
-=======
->>>>>>> a627cbe (design and implement archiecture for project)
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -11,7 +8,6 @@ import AVFoundation
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
-<<<<<<< HEAD
 
     do {
       let audioSession = AVAudioSession.sharedInstance()
@@ -25,9 +21,3 @@ import AVFoundation
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
-=======
-    GeneratedPluginRegistrant.register(with: self)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-  }
-}
->>>>>>> a627cbe (design and implement archiecture for project)

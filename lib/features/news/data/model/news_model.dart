@@ -2,12 +2,11 @@ import 'package:lotus_news/core/mapper/mapper.dart';
 import 'package:lotus_news/features/news/domain/entities/news_entity.dart';
 
 class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
-  final double id;
-  final String link;
-  final String source;
-  final String description;
-  final String summary;
-  final List<ImageSource> images;
+  final String id;
+  final String body;
+  final String? summary;
+  final String createdAt;
+  final int score;
   final String title;
   final String? thumbnail;
   final String? shortDescription;
@@ -17,28 +16,27 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
 
   const NewsModel({
     required this.id,
-    required this.link,
-    required this.source,
-    required this.description,
-    required this.images,
-    required this.summary,
-    this.brandIcon,
-    this.brandName,
+    required this.body,
+    required this.createdAt,
+    required this.score,
     required this.title,
     this.thumbnail,
+    this.brandIcon,
+    this.brandName,
     this.shortDescription,
+    this.summary,
     this.content
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
       id: json['id'],
-      link: json['link'],
-      source: json['source'],
       title: json['title'],
-      description: json['description'],
+      body: json['body'] ?? '',
+      score: json['score'],
+      createdAt: json['created_at'],
+      shortDescription: json['short_description'],
       summary: json['summary'],
-      images: (json['images'] as List).map((i) => ImageSource.fromJson(i)).toList()
     );
   }
 

@@ -70,8 +70,8 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
         padding: const EdgeInsets.symmetric(horizontal: 8),
         children: [
           _buildHeader(theme),
+          Text(widget.news.shortDescription ?? '', style: theme.textTheme.titleSmall,),
           const SizedBox(height: 15,),
-          Text(widget.news.summary ?? '', style: theme.textTheme.titleSmall,),
           _buildImage(size),
           Text(widget.news.title, style: theme.textTheme.titleSmall,),
           const SizedBox(height: 5,),
@@ -101,7 +101,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
             },
           ),
           const SizedBox(height: 5,),
-          Text(widget.news.content?.trim() ?? '', style: theme.textTheme.bodySmall,)
+          Text(widget.news.body.trim() ?? '', style: theme.textTheme.bodySmall,)
         ],
       ),
       bottomNavigationBar: _buildBottomReact(theme),
@@ -176,7 +176,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: CachedNetworkImage(
-          imageUrl: 'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
+          imageUrl: widget.news.image,
           height: size.height * 0.3,
           fit: BoxFit.cover,
         )

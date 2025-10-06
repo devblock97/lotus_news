@@ -46,7 +46,7 @@ class NewsCard extends StatelessWidget {
         topRight: Radius.circular(16),
       ),
       child: CachedNetworkImage(
-        imageUrl: 'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
+        imageUrl: news.image,
         height: MediaQuery.of(context).size.height * (isPhone ? 0.25 : 0.45),
         width: MediaQuery.of(context).size.width,
         fit: BoxFit.fill,

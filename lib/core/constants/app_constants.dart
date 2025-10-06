@@ -1,5 +1,27 @@
+import 'dart:io';
+
 class AppConstants {
-  static String baseUrl = 'http://10.0.2.2:3000';
+
+  static String baseUrl(bool isAndroid) {
+    if (isAndroid) {
+      return 'http://10.0.2.2:3000';
+    } else {
+      return 'http://localhost:3000';
+    }
+  }
+
+  static String wsUrl(bool isRealDevice) {
+    if (isRealDevice) {
+      return 'ws://192.168.110.223/api/ws/posts';
+    } else {
+      if (Platform.isAndroid) {
+        return 'ws://10.0.2.2:3000/api/ws/posts';
+      } else {
+        return 'ws://localhost:3000/api/ws/posts';
+      }
+    }
+  }
+
   static String token = '';
 
   static String posts = '/api/posts';

@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:lotus_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/presentation/widgets/news_card.dart';
+import 'package:lotus_news/features/news/presentation/widgets/post_stream.dart';
 import 'package:provider/provider.dart';
 import 'package:lotus_news/core/components/profile_button_app_bar.dart';
 import 'package:lotus_news/core/constants/app_constants.dart';
@@ -22,9 +25,11 @@ import 'package:lotus_news/features/search/presentation/view_model/search_view_m
 import 'package:lotus_news/injector.dart';
 
 import 'core/theme/app_theme.dart';
+import 'core/utils/utils.dart';
 import 'features/news/presentation/widgets/summarize_content.dart';
 import 'features/profile/presentation/view/profile_screen.dart';
 import 'features/search/presentation/view/search_screen.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -124,6 +129,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
       body: CustomScrollView(
         slivers: [
           sliverAppBar(context),
+          SliverToBoxAdapter(child: PostStream()),
           SliverToBoxAdapter(child: NewsScreen(),)
         ],
       ),

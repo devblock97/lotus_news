@@ -128,7 +128,7 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
                 )
               ),
               child: CachedNetworkImage(
-                imageUrl: widget.news.brandIcon ?? '',
+                imageUrl: widget.news.avatar ?? '',
                 height: 100,
                 width: 100,
                 fit: BoxFit.fitHeight,
@@ -138,7 +138,13 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(widget.news.body, style: theme.textTheme.titleSmall,),
+                Text(
+                  widget.news.title,
+                  maxLines: 2,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.textTheme.titleSmall,
+                ),
                 Text(
                   DateFormat('dd/MM/yyyy').format(DateTime.now()),
                   style: theme.textTheme.labelSmall,

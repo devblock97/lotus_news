@@ -5,11 +5,10 @@ import 'package:shimmer/shimmer.dart';
 import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 class NewsCard extends StatelessWidget {
-  NewsCard({super.key, required this.news, this.isPhone = true, required this.index});
+  NewsCard({super.key, required this.news, this.isPhone = true});
 
   final NewsModel news;
   final bool isPhone;
-  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class NewsCard extends StatelessWidget {
         color: theme.cardTheme.color,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.grey.shade400, blurRadius: 6, spreadRadius: 2),
+          BoxShadow(color: Colors.grey.shade400, blurRadius: 4, spreadRadius: 1.5),
         ]
       ),
       child: Column(
@@ -85,7 +84,10 @@ class NewsCard extends StatelessWidget {
           CircleAvatar(
             maxRadius: 10,
             backgroundColor: Colors.white,
-            child: Image.network(news.brandIcon ?? 'https://download.logo.wine/logo/BBC_News/BBC_News-Logo.wine.png'),
+            child: Image.network(
+              news.avatar ?? 'https://download.logo.wine/logo/BBC_News/BBC_News-Logo.wine.png',
+              fit: BoxFit.fill
+            ),
           ),
           const SizedBox(width: 5),
           Expanded(

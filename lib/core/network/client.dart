@@ -14,7 +14,7 @@ class Client {
     _dio = Dio();
 
     _dio
-    ..options.baseUrl = AppConstants.baseUrl
+    ..options.baseUrl = AppConstants.baseUrl(Platform.isAndroid ? true : false)
     ..options.headers = {
       HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
       HttpHeaders.authorizationHeader: 'Bearer ${AppConstants.token}'

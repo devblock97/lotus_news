@@ -9,6 +9,7 @@ import 'package:lotus_news/features/news/presentation/widgets/card_skeleton.dart
 import 'package:lotus_news/features/news/presentation/widgets/news_card.dart';
 import '../view_model/news_state.dart';
 
+
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
 
@@ -48,7 +49,7 @@ class _NewsScreenState extends State<NewsScreen> {
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (_) => DetailScreen(news: news[index])));
                         },
-                        child: NewsCard(index: index, news: news[index])
+                        child: NewsCard(news: news[index])
                       );
                     },
                   );
@@ -57,7 +58,7 @@ class _NewsScreenState extends State<NewsScreen> {
                   return GridView.builder(
                     itemCount: news.length,
                     itemBuilder: (_, index) {
-                      return NewsCard(index: index, news: news[index], isPhone: false,);
+                      return NewsCard(news: news[index], isPhone: false,);
                     },
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,

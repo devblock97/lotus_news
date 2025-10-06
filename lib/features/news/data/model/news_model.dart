@@ -10,7 +10,7 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
   final String title;
   final String? thumbnail;
   final String? shortDescription;
-  final String? brandIcon;
+  final String? avatar;
   final String? brandName;
   final String? content;
 
@@ -21,7 +21,7 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
     required this.score,
     required this.title,
     this.thumbnail,
-    this.brandIcon,
+    this.avatar,
     this.brandName,
     this.shortDescription,
     this.summary,
@@ -37,6 +37,7 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
       createdAt: json['created_at'],
       shortDescription: json['short_description'],
       summary: json['summary'],
+      avatar: json['avatar'],
     );
   }
 

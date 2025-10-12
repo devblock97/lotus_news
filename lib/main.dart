@@ -1,13 +1,8 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tts/flutter_tts.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:lotus_news/features/news/data/model/news_model.dart';
-import 'package:lotus_news/features/news/presentation/widgets/news_card.dart';
 import 'package:lotus_news/features/news/presentation/widgets/post_stream.dart';
 import 'package:provider/provider.dart';
 import 'package:lotus_news/core/components/profile_button_app_bar.dart';
@@ -25,11 +20,8 @@ import 'package:lotus_news/features/search/presentation/view_model/search_view_m
 import 'package:lotus_news/injector.dart';
 
 import 'core/theme/app_theme.dart';
-import 'core/utils/utils.dart';
-import 'features/news/presentation/widgets/summarize_content.dart';
 import 'features/profile/presentation/view/profile_screen.dart';
 import 'features/search/presentation/view/search_screen.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,12 +33,12 @@ Future<void> main() async {
   runApp(const App());
 }
 
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port) => true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
 
@@ -62,7 +54,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init()),
         ChangeNotifierProvider(create: (_) => AssistantViewModel()),
-        ChangeNotifierProvider(create: (_) => ChatViewModel())
+        ChangeNotifierProvider(create: (_) => ChatViewModel()),
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {
@@ -71,7 +63,7 @@ class App extends StatelessWidget {
             darkTheme: AppTheme.darkTheme,
             themeMode: theme.mode,
             debugShowCheckedModeBanner: false,
-            home: const MainScreen()
+            home: const MainScreen(),
           );
         },
       ),
@@ -87,22 +79,25 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
-  bool _isSearching = false;
-  final TextEditingController _searchController = TextEditingController();
+  final bool _isSearching = false;
 
   late AnimationController _voiceController;
 
-  List<double> _amplitudes = List.generate(40, (_) => Random().nextDouble() * 0.8);
+  List<double> _amplitudes = List.generate(
+    40,
+    (_) => Random().nextDouble() * 0.8,
+  );
 
   @override
   void initState() {
     super.initState();
-    _voiceController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 500)
-    )..addListener(() {
-      updateWave();
-    });
+    _voiceController =
+        AnimationController(
+          vsync: this,
+          duration: const Duration(milliseconds: 500),
+        )..addListener(() {
+          updateWave();
+        });
   }
 
   void updateWave() {
@@ -130,7 +125,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         slivers: [
           sliverAppBar(context),
           SliverToBoxAdapter(child: PostStream()),
-          SliverToBoxAdapter(child: NewsScreen(),)
+          SliverToBoxAdapter(child: NewsScreen()),
         ],
       ),
       resizeToAvoidBottomInset: true,
@@ -140,7 +135,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
 
   Widget _buildNewsQuickAction(ThemeData theme) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12, top: 8, right:  12, bottom: 24),
+      padding: const EdgeInsets.only(left: 12, top: 8, right: 12, bottom: 24),
       child: Consumer<NewsVoiceViewModel>(
         builder: (context, state, child) {
           if (state.state == TtsState.playing) {
@@ -148,11 +143,16 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           } else {
             _voiceController.stop();
           }
-          if (state.state == TtsState.playing || state.state == TtsState.paused) {
+          if (state.state == TtsState.playing ||
+              state.state == TtsState.paused) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) =>
-                    DetailScreen(news: state.news!)));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => DetailScreen(news: state.news!),
+                  ),
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -162,7 +162,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                     top: BorderSide(color: theme.primaryColor),
                     right: BorderSide(color: theme.primaryColor),
                     bottom: BorderSide(color: theme.primaryColor),
-                  )
+                  ),
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -185,28 +185,31 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                               context.read<NewsVoiceViewModel>().pause();
                               _voiceController.stop();
                             }
-                            if (state.state == TtsState.paused || state.state == TtsState.stopped) {
+                            if (state.state == TtsState.paused ||
+                                state.state == TtsState.stopped) {
                               // context.read<NewsVoiceViewModel>().speak(content);
                               _voiceController.repeat();
                             }
                           },
                           icon: Icon(
                             state.state == TtsState.playing
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                            color: theme.primaryColor, size: 25,
-                          )
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                            color: theme.primaryColor,
+                            size: 25,
+                          ),
                         ),
                         ClipRRect(
                           borderRadius: BorderRadius.circular(8),
                           child: CachedNetworkImage(
-                            imageUrl: 'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
+                            imageUrl:
+                                'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
                             width: 50,
                             height: 50,
                             fit: BoxFit.contain,
                           ),
                         ),
-                        const SizedBox(width: 10,),
+                        const SizedBox(width: 10),
                         Expanded(
                           child: SizedBox(
                             height: 50,
@@ -214,20 +217,26 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
                             child: CustomPaint(
                               painter: VoiceWavePainter(
                                 amplitudes: _amplitudes,
-                                color: Colors.blueAccent.shade700
+                                color: Colors.blueAccent.shade700,
                               ),
                             ),
-                          )
+                          ),
                         ),
-                        const SizedBox(width: 10,),
+                        const SizedBox(width: 10),
                         IconButton(
                           onPressed: () {
                             context.read<NewsVoiceViewModel>().stop();
                             _voiceController.stop();
                           },
-                          icon: state.state == TtsState.playing || state.state == TtsState.paused
-                            ? Icon(Icons.stop, color: Colors.redAccent, size: 25,)
-                            : const SizedBox.shrink()
+                          icon:
+                              state.state == TtsState.playing ||
+                                  state.state == TtsState.paused
+                              ? Icon(
+                                  Icons.stop,
+                                  color: Colors.redAccent,
+                                  size: 25,
+                                )
+                              : const SizedBox.shrink(),
                         ),
                       ],
                     ),
@@ -238,7 +247,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
           }
           return const SizedBox.shrink();
         },
-      )
+      ),
     );
   }
 
@@ -249,32 +258,42 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         style: TextStyle(
           color: Colors.white,
           fontSize: 20,
-          fontWeight: FontWeight.bold),),
-      leading: _isSearching ? null : Container(
-        width: 25,
-        height: 25,
-        padding: const EdgeInsets.all(8),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(25),
-          child: Image.asset(
-            'assets/images/news_logo.png',
-            fit: BoxFit.cover,
-            colorBlendMode: BlendMode.luminosity,
-          ),
+          fontWeight: FontWeight.bold,
         ),
       ),
+      leading: _isSearching
+          ? null
+          : Container(
+              width: 25,
+              height: 25,
+              padding: const EdgeInsets.all(8),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: Image.asset(
+                  'assets/images/news_logo.png',
+                  fit: BoxFit.cover,
+                  colorBlendMode: BlendMode.luminosity,
+                ),
+              ),
+            ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.search, color: Colors.white,),
+          icon: const Icon(Icons.search, color: Colors.white),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => SearchScreen()));
-          }
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => SearchScreen()),
+            );
+          },
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => ProfileScreen()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => ProfileScreen()),
+            );
           },
-          child: ProfileButtonAppBar()
+          child: ProfileButtonAppBar(),
         ),
       ],
       centerTitle: true,
@@ -293,25 +312,35 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
         margin: EdgeInsets.only(top: size.height * 0.12 + 10),
         child: ListView(
           scrollDirection: Axis.horizontal,
-          children: [Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: AppConstants.categories.map((c) => Container(
-              height: size.height * 0.04,
-              margin: const EdgeInsets.only(right: 8),
-              padding: EdgeInsets.symmetric(horizontal: size.height * 0.015),
-              decoration: BoxDecoration(
-                border: Border(
-                  left: BorderSide(color: Colors.white),
-                  top: BorderSide(color: Colors.white),
-                  right: BorderSide(color: Colors.white),
-                  bottom: BorderSide(color: Colors.white),
-                ),
-                borderRadius: BorderRadius.circular(16)
-              ),
-              child: Center(child: Text(c, style: TextStyle(color: Colors.white),)),)
-            ).toList(),
-          )],
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: AppConstants.categories
+                  .map(
+                    (c) => Container(
+                      height: size.height * 0.04,
+                      margin: const EdgeInsets.only(right: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: size.height * 0.015,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          left: BorderSide(color: Colors.white),
+                          top: BorderSide(color: Colors.white),
+                          right: BorderSide(color: Colors.white),
+                          bottom: BorderSide(color: Colors.white),
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Center(
+                        child: Text(c, style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
         ),
       ),
     );

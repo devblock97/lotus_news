@@ -15,7 +15,7 @@ class NetworkInfoImpl implements NetworkInfo {
 
   Future<bool> _hasConnected() async {
     var connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult == ConnectivityResult.none) {
+    if (connectivityResult.first == ConnectivityResult.none) {
       return false;
     }
     return await _hasInternetAccess();
@@ -29,5 +29,4 @@ class NetworkInfoImpl implements NetworkInfo {
       return false;
     }
   }
-
 }

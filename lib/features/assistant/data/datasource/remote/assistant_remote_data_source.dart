@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:lotus_news/core/constants/app_constants.dart';
@@ -9,14 +8,14 @@ import 'package:lotus_news/features/assistant/data/model/assistant_request.dart'
 import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
 
 abstract class AssistantRemoteDataSource {
-  Future<AssistantResponse> summarize(AssistantRequest param) => throw UnimplementedError('Stub');
+  Future<AssistantResponse> summarize(AssistantRequest param) =>
+      throw UnimplementedError('Stub');
 
-  Stream<String> summarizeStream(AssistantRequest param) => throw UnimplementedError('Stub');
-
+  Stream<String> summarizeStream(AssistantRequest param) =>
+      throw UnimplementedError('Stub');
 }
 
 class AssistantRemoteDataSourceImpl implements AssistantRemoteDataSource {
-
   final Client _client;
   const AssistantRemoteDataSourceImpl(this._client);
 
@@ -26,10 +25,9 @@ class AssistantRemoteDataSourceImpl implements AssistantRemoteDataSource {
       final response = await _client.post(
         AppConstants.assistant,
         data: jsonEncode(param.toJson()),
-
       );
       return AssistantResponse.fromJson(response.data);
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }
@@ -41,15 +39,15 @@ class AssistantRemoteDataSourceImpl implements AssistantRemoteDataSource {
         AppConstants.assistant,
         data: jsonEncode(param.toJson()),
         options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: {'Content-Type': 'application/json'},
           responseType: ResponseType.stream,
         ),
       );
 
       final bodyData = response.data! as ResponseBody;
-      final stream = bodyData.stream.transform(StreamTransformer.fromBind(utf8.decoder.bind));
+      final stream = bodyData.stream.transform(
+        StreamTransformer.fromBind(utf8.decoder.bind),
+      );
       await for (final chunk in stream) {
         for (final line in LineSplitter.split(chunk)) {
           if (line.trim().isEmpty) continue;
@@ -57,7 +55,7 @@ class AssistantRemoteDataSourceImpl implements AssistantRemoteDataSource {
           yield jsonLine['response'];
         }
       }
-    } on DioException catch(e) {
+    } on DioException {
       rethrow;
     }
   }

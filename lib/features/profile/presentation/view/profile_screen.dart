@@ -27,8 +27,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: Icon(
               Icons.notifications_outlined,
               color: Colors.blueAccent.shade700,
-            )
-          )
+            ),
+          ),
         ],
         backgroundColor: theme.appBarTheme.backgroundColor,
       ),
@@ -45,27 +45,58 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(80),
                   child: Image.network(
-                      'https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D'),
+                    'https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D',
+                  ),
                 ),
               ),
               Column(
                 children: [
-                  Text('1.1k', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor)),
-                  Text('Following', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor))
+                  Text(
+                    '1.1k',
+                    style: theme.textTheme.labelMedium!.copyWith(
+                      color: theme.primaryColor,
+                    ),
+                  ),
+                  Text(
+                    'Following',
+                    style: theme.textTheme.labelMedium!.copyWith(
+                      color: theme.primaryColor,
+                    ),
+                  ),
                 ],
               ),
               Column(
                 children: [
-                  Text('205', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor)),
-                  Text('Followers', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor))
+                  Text(
+                    '205',
+                    style: theme.textTheme.labelMedium!.copyWith(
+                      color: theme.primaryColor,
+                    ),
+                  ),
+                  Text(
+                    'Followers',
+                    style: theme.textTheme.labelMedium!.copyWith(
+                      color: theme.primaryColor,
+                    ),
+                  ),
                 ],
               ),
               Column(
                 children: [
-                  Text('12', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor)),
-                  Text('News', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor))
+                  Text(
+                    '12',
+                    style: theme.textTheme.labelMedium!.copyWith(
+                      color: theme.primaryColor,
+                    ),
+                  ),
+                  Text(
+                    'News',
+                    style: theme.textTheme.labelMedium!.copyWith(
+                      color: theme.primaryColor,
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
           Padding(
@@ -83,50 +114,60 @@ class _ProfileScreenState extends State<ProfileScreen> {
               'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
               style: theme.textTheme.labelSmall!.copyWith(
                 color: theme.primaryColor,
-                fontSize: 12
-              )
+                fontSize: 12,
+              ),
             ),
           ),
-          Divider(thickness: 1, color: theme.primaryColor,),
+          Divider(thickness: 1, color: theme.primaryColor),
           ListTile(
             leading: Icon(Icons.nightlight_outlined, color: theme.primaryColor),
-            title: Text('Dark Mode', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor)),
+            title: Text(
+              'Dark Mode',
+              style: theme.textTheme.labelMedium!.copyWith(
+                color: theme.primaryColor,
+              ),
+            ),
             trailing: Consumer<ThemeModeProvider>(
-              builder: (BuildContext context, ThemeModeProvider value, Widget? child) {
-                return Switch(
-                    value: value.mode == ThemeMode.dark,
-                    onChanged: (value) {
-                      context.read<ThemeModeProvider>().toggle();
-                    }
-                );
-              },
+              builder:
+                  (
+                    BuildContext context,
+                    ThemeModeProvider value,
+                    Widget? child,
+                  ) {
+                    return Switch(
+                      value: value.mode == ThemeMode.dark,
+                      onChanged: (value) {
+                        context.read<ThemeModeProvider>().toggle();
+                      },
+                    );
+                  },
             ),
           ),
           ListTile(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => ChatScreen()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ChatScreen()),
+              );
             },
             leading: Icon(Icons.mark_chat_unread_outlined),
             title: Text('Hỏi đáp'),
             trailing: Icon(Icons.chevron_right),
           ),
           ListTile(
-            onTap: () {
-            },
+            onTap: () {},
             leading: Icon(Icons.fingerprint),
             title: Text('Vân tay'),
             trailing: Icon(Icons.chevron_right),
           ),
           ListTile(
-            onTap: () {
-            },
+            onTap: () {},
             leading: Icon(Icons.contact_page_outlined),
             title: Text('liện hệ'),
             trailing: Icon(Icons.chevron_right),
           ),
           ListTile(
-            onTap: () {
-            },
+            onTap: () {},
             leading: Icon(Icons.info_outline),
             title: Text('Giới thiệu'),
             trailing: Icon(Icons.chevron_right),
@@ -139,23 +180,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return ListTile(
                     onTap: () async {
                       if (data.isSignedOut) {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => AuthScreen()));
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => AuthScreen()),
+                        );
                       } else {
                         context.read<AuthViewModel>().signOUt();
                       }
                     },
-                    leading: Icon(Icons.logout_outlined, color: Colors.red,),
-                    title: Text(data.isSignedOut ? 'Đăng nhập' : 'Đăng xuất', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor)),
-                    trailing: Icon(Icons.chevron_right, color: theme.primaryColor,),
+                    leading: Icon(Icons.logout_outlined, color: Colors.red),
+                    title: Text(
+                      data.isSignedOut ? 'Đăng nhập' : 'Đăng xuất',
+                      style: theme.textTheme.labelMedium!.copyWith(
+                        color: theme.primaryColor,
+                      ),
+                    ),
+                    trailing: Icon(
+                      Icons.chevron_right,
+                      color: theme.primaryColor,
+                    ),
                   );
               }
               return ListTile(
                 onTap: () async {
                   context.read<AuthViewModel>().signOUt();
                 },
-                leading: Icon(Icons.logout_outlined, color: Colors.red,),
-                title: Text(AuthViewModel().isAuthenticated ? 'Đăng xuất' : 'Đăng nhập', style: theme.textTheme.labelMedium!.copyWith(color: theme.primaryColor)),
-                trailing: Icon(Icons.chevron_right, color: theme.primaryColor,),
+                leading: Icon(Icons.logout_outlined, color: Colors.red),
+                title: Text(
+                  AuthViewModel().isAuthenticated ? 'Đăng xuất' : 'Đăng nhập',
+                  style: theme.textTheme.labelMedium!.copyWith(
+                    color: theme.primaryColor,
+                  ),
+                ),
+                trailing: Icon(Icons.chevron_right, color: theme.primaryColor),
               );
             },
           ),
@@ -164,4 +221,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-

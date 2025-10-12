@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -7,7 +6,6 @@ class NewsCardSkeleton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     return Column(
       children: [
@@ -20,8 +18,12 @@ class NewsCardSkeleton extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
-              BoxShadow(color: Colors.grey.shade400, blurRadius: 6, spreadRadius: 2),
-            ]
+              BoxShadow(
+                color: Colors.grey.shade400,
+                blurRadius: 6,
+                spreadRadius: 2,
+              ),
+            ],
           ),
           child: Column(
             children: [
@@ -37,10 +39,10 @@ class NewsCardSkeleton extends StatelessWidget {
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.orange,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(16),
-                            topRight: Radius.circular(16)
-                          )
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -49,7 +51,7 @@ class NewsCardSkeleton extends StatelessWidget {
                       width: size.width * 0.25,
                       decoration: BoxDecoration(
                         color: Colors.blue,
-                        borderRadius: BorderRadius.circular(16)
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -57,7 +59,7 @@ class NewsCardSkeleton extends StatelessWidget {
                       height: size.height * 0.11,
                       decoration: BoxDecoration(
                         color: Colors.orange,
-                        borderRadius: BorderRadius.circular(16)
+                        borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -65,9 +67,9 @@ class NewsCardSkeleton extends StatelessWidget {
                       height: size.height * 0.06,
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.circular(16)
+                        borderRadius: BorderRadius.circular(16),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -80,14 +82,18 @@ class NewsCardSkeleton extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.35,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16)
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.shade400,
+                blurRadius: 6,
+                spreadRadius: 2,
               ),
-              boxShadow: [
-                BoxShadow(color: Colors.grey.shade400, blurRadius: 6, spreadRadius: 2),
-              ]
+            ],
           ),
           child: Shimmer.fromColors(
             baseColor: Colors.grey.shade200,
@@ -101,10 +107,10 @@ class NewsCardSkeleton extends StatelessWidget {
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Colors.grey,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(16),
-                          topRight: Radius.circular(16)
-                      )
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(16),
+                      topRight: Radius.circular(16),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -112,8 +118,8 @@ class NewsCardSkeleton extends StatelessWidget {
                   height: 20,
                   width: size.width * 0.25,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(16)
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(16),
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -123,8 +129,8 @@ class NewsCardSkeleton extends StatelessWidget {
                     color: Colors.grey,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(16),
-                      topLeft: Radius.circular(16)
-                    )
+                      topLeft: Radius.circular(16),
+                    ),
                   ),
                 ),
               ],

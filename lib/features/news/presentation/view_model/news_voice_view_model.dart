@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -7,9 +6,7 @@ import 'package:lotus_news/features/news/data/model/news_model.dart';
 
 enum TtsState { playing, stopped, paused, continued }
 
-
 class NewsVoiceViewModel extends ChangeNotifier {
-
   late FlutterTts flutterTts;
 
   double volume = 0.8;
@@ -35,28 +32,24 @@ class NewsVoiceViewModel extends ChangeNotifier {
     }
 
     flutterTts.setStartHandler(() {
-      print('Playing');
       _ttsState = TtsState.playing;
     });
 
     flutterTts.setCompletionHandler(() {
-      print('Complete');
       _ttsState = TtsState.stopped;
     });
 
     flutterTts.setCancelHandler(() {
-      print('Cancel');
       _ttsState = TtsState.stopped;
     });
 
     flutterTts.setPauseHandler(() {
-      print('Paused');
       _ttsState = TtsState.paused;
     });
 
-    flutterTts.setProgressHandler((String text, int startOffset, int endOffset, String word) {
-      print('Word: $word');
-    });
+    flutterTts.setProgressHandler(
+      (String text, int startOffset, int endOffset, String word) {},
+    );
     notifyListeners();
   }
 
@@ -103,16 +96,14 @@ class NewsVoiceViewModel extends ChangeNotifier {
   }
 
   Future<void> stop() async {
-    var result = await flutterTts.stop();
+    await flutterTts.stop();
     _ttsState = TtsState.stopped;
     notifyListeners();
   }
 
-
   Future<void> pause() async {
-    var result = await flutterTts.pause();
+    await flutterTts.pause();
     _ttsState = TtsState.paused;
     notifyListeners();
   }
-
 }

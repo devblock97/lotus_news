@@ -1,11 +1,9 @@
-
 import 'package:fpdart/fpdart.dart';
 import 'package:lotus_news/core/exceptions/failure.dart';
 import 'package:lotus_news/features/auth/data/datasource/auth_local_data_source.dart';
 import 'package:lotus_news/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-
   final AuthLocalDataSource localDataSource;
 
   AuthRepositoryImpl(this.localDataSource);
@@ -42,5 +40,4 @@ class AuthRepositoryImpl implements AuthRepository {
       rethrow;
     }
   }
-
 }

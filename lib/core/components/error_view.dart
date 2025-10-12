@@ -17,9 +17,10 @@ class ErrorView extends StatelessWidget {
         children: [
           Image.asset('assets/images/error_img.jpg'),
           Text(
-            message ?? '', style: theme.textTheme.titleMedium,
+            message ?? '',
+            style: theme.textTheme.titleMedium,
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
     );

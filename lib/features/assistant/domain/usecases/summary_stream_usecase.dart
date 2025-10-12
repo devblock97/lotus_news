@@ -1,4 +1,4 @@
-import 'package:fpdart/src/either.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:lotus_news/core/exceptions/failure.dart';
 import 'package:lotus_news/core/usecases/usecase.dart';
 import 'package:lotus_news/features/assistant/domain/repositories/summary_repository.dart';
@@ -12,5 +12,4 @@ class SummaryStreamUseCase extends StreamUseCase<String, AssistantParam> {
   Stream<Either<Failure, String>> call(AssistantParam params) {
     return _repository.summarizeStream(params.param);
   }
-
 }

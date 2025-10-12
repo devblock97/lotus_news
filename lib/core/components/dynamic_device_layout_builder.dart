@@ -4,7 +4,7 @@ class DynamicDeviceLayoutBuilder extends StatelessWidget {
   const DynamicDeviceLayoutBuilder({
     super.key,
     required this.mobileView,
-    required this.tabletView
+    required this.tabletView,
   });
 
   final Widget Function(BuildContext context) mobileView;

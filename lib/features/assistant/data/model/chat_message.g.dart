@@ -16,10 +16,7 @@ class ChatMessageAdapter extends TypeAdapter<ChatMessage> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return ChatMessage(
-      response: fields[0] as String,
-      isMe: fields[1] as bool,
-    );
+    return ChatMessage(response: fields[0] as String, isMe: fields[1] as bool);
   }
 
   @override

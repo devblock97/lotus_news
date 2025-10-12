@@ -11,9 +11,7 @@ class SearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Tìm kiếm'),
-      ),
+      appBar: AppBar(title: Text('Tìm kiếm')),
       backgroundColor: theme.scaffoldBackgroundColor,
       body: ListView(
         shrinkWrap: true,
@@ -28,16 +26,16 @@ class SearchScreen extends StatelessWidget {
                 top: BorderSide(color: Colors.black),
                 right: BorderSide(color: Colors.black),
                 bottom: BorderSide(color: Colors.black),
-              )
+              ),
             ),
             child: TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none
-                ),
-                prefixIcon: Icon(Icons.search, color: Colors.black,),
+                border: OutlineInputBorder(borderSide: BorderSide.none),
+                prefixIcon: Icon(Icons.search, color: Colors.black),
                 hintText: 'Tìm kiếm bài viết thể thao, chính trị, giải trí...',
-                hintStyle: theme.textTheme.labelSmall!.copyWith(color: theme.primaryColor),
+                hintStyle: theme.textTheme.labelSmall!.copyWith(
+                  color: theme.primaryColor,
+                ),
               ),
               onChanged: (value) {
                 context.read<SearchViewModel>().search(value);
@@ -48,7 +46,7 @@ class SearchScreen extends StatelessWidget {
             builder: (_, state, child) {
               switch (state) {
                 case SearchLoading _:
-                  return Center(child: CircularProgressIndicator(),);
+                  return Center(child: CircularProgressIndicator());
                 case SearchError message:
                   return Text(message.message ?? '');
                 case SearchSuccess data:
@@ -56,14 +54,17 @@ class SearchScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: data.data.length,
                     itemBuilder: (context, index) {
-                      return Text(data.data[index].title, style: TextStyle(color: Colors.black),);
+                      return Text(
+                        data.data[index].title,
+                        style: TextStyle(color: Colors.black),
+                      );
                     },
                   );
                 default:
-                  return Center(child: NoDataView(),);
+                  return Center(child: NoDataView());
               }
             },
-          )
+          ),
         ],
       ),
     );

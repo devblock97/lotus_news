@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 class VoiceWavePainter extends CustomPainter {
@@ -31,51 +30,5 @@ class VoiceWavePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant VoiceWavePainter oldDelegate) {
     return oldDelegate.amplitudes != amplitudes;
-  }
-}
-
-class VoiceWave extends StatefulWidget {
-  VoiceWave({super.key, required this.controller});
-
-  AnimationController controller;
-
-  @override
-  State<VoiceWave> createState() => _VoiceWaveState();
-}
-
-class _VoiceWaveState extends State<VoiceWave> with TickerProviderStateMixin {
-
-  late AnimationController _controller;
-
-  List<double> _amplitudes = List.generate(20, (_) => Random().nextDouble() * 0.6);
-
-  @override
-  void initState() {
-    super.initState();
-    widget.controller = AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 500))
-      ..addListener(() {
-        updateWave();
-      });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: CustomPaint(
-        painter: VoiceWavePainter(
-            amplitudes: _amplitudes,
-            color: Colors.blueAccent.shade700
-        ),
-      ),
-    );
-  }
-
-  void updateWave() {
-    setState(() {
-      _amplitudes = List.generate(20, (_) => Random().nextDouble() * 0.8);
-    });
   }
 }

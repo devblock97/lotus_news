@@ -6,12 +6,12 @@ class AssistantRequest {
   AssistantRequest({
     this.model = 'gemma3:latest',
     required this.prompt,
-    this.stream = false
+    this.stream = false,
   });
 
   Map<String, dynamic> toJson() => {
     'model': model,
     'prompt': prompt,
-    'stream': stream
+    'stream': stream,
   };
 }

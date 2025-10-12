@@ -4,7 +4,7 @@ class DeviceLayoutBuilder extends StatelessWidget {
   const DeviceLayoutBuilder({
     super.key,
     required this.mobileView,
-    required this.tabletView
+    required this.tabletView,
   });
 
   final Widget Function(BuildContext context) mobileView;

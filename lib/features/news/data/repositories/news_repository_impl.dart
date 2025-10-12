@@ -6,10 +6,8 @@ import 'package:lotus_news/features/news/data/datasource/news_local_datasource.d
 import 'package:lotus_news/features/news/data/datasource/news_remote_datasource.dart';
 import 'package:lotus_news/features/news/data/model/news_model.dart';
 import 'package:lotus_news/features/news/domain/repositories/news_repository.dart';
-import 'dart:developer' as developer;
 
 class NewsRepositoryImpl implements NewsRepository {
-
   final NewsLocalDatasource localDataSource;
   final NewsRemoteDataSource remoteDataSource;
   final NetworkInfo networkInfo;
@@ -17,7 +15,7 @@ class NewsRepositoryImpl implements NewsRepository {
   const NewsRepositoryImpl({
     required this.localDataSource,
     required this.remoteDataSource,
-    required this.networkInfo
+    required this.networkInfo,
   });
 
   @override
@@ -40,5 +38,4 @@ class NewsRepositoryImpl implements NewsRepository {
   Future<Either<Failure, NewsModel>> getNewsById(String id) {
     throw UnimplementedError();
   }
-
 }

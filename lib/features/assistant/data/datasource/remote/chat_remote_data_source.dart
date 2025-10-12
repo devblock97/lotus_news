@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -9,13 +8,14 @@ import 'package:lotus_news/features/assistant/data/model/assistant_request.dart'
 import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
 
 abstract class ChatRemoteDataSource {
-  Stream<AssistantResponse> send(AssistantRequest param) => throw UnimplementedError('Stub');
+  Stream<AssistantResponse> send(AssistantRequest param) =>
+      throw UnimplementedError('Stub');
 
-  Stream<String> receive(AssistantResponse data) => throw UnimplementedError('Stub');
+  Stream<String> receive(AssistantResponse data) =>
+      throw UnimplementedError('Stub');
 }
 
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
-
   final Client _client;
   ChatRemoteDataSourceImpl(this._client);
 
@@ -31,27 +31,27 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
         AppConstants.assistant,
         data: jsonEncode(param.toJson()),
         options: Options(
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          responseType: ResponseType.stream
-        )
+          headers: {'Content-Type': 'application/json'},
+          responseType: ResponseType.stream,
+        ),
       );
 
       final bodyData = response.data as ResponseBody;
-      final streamData = bodyData.stream.transform(StreamTransformer.fromBind(utf8.decoder.bind));
+      final streamData = bodyData.stream.transform(
+        StreamTransformer.fromBind(utf8.decoder.bind),
+      );
       await for (final chunk in streamData) {
         for (final line in LineSplitter.split(chunk)) {
           if (line.trim().isEmpty) continue;
           final jsonLine = jsonDecode(line);
-          yield AssistantResponse(response: jsonLine['response'], done: jsonLine['done']);
+          yield AssistantResponse(
+            response: jsonLine['response'],
+            done: jsonLine['done'],
+          );
         }
       }
-    } on DioException catch (e) {
+    } on DioException {
       rethrow;
     }
   }
-
-
-
 }

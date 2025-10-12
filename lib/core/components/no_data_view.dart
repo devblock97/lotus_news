@@ -17,9 +17,10 @@ class NoDataView extends StatelessWidget {
         children: [
           Image.asset('assets/images/no_data.jpg'),
           Text(
-            message ?? '', style: theme.textTheme.titleMedium,
+            message ?? '',
+            style: theme.textTheme.titleMedium,
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
     );

@@ -15,7 +15,6 @@ class PostStream extends StatefulWidget {
 }
 
 class _PostStreamState extends State<PostStream> {
-
   late WebSocketChannel _channel;
 
   @override
@@ -43,7 +42,9 @@ class _PostStreamState extends State<PostStream> {
         }
 
         if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}. Check server/URL'),);
+          return Center(
+            child: Text('Error: ${snapshot.error}. Check server/URL'),
+          );
         }
 
         if (snapshot.hasData) {
@@ -55,9 +56,12 @@ class _PostStreamState extends State<PostStream> {
 
             return GestureDetector(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (_) => DetailScreen(news: news)));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => DetailScreen(news: news)),
+                );
               },
-              child: NewsCard(news: news)
+              child: NewsCard(news: news),
             );
           } catch (e) {
             debugPrint('Failed to decode JSON or map to Post: $e');
@@ -65,7 +69,7 @@ class _PostStreamState extends State<PostStream> {
         }
 
         return const SizedBox.shrink();
-      }
+      },
     );
   }
 }

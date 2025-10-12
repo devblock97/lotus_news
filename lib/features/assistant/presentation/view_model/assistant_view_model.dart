@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
 import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
@@ -7,7 +6,6 @@ import 'package:lotus_news/features/assistant/domain/usecases/summary_usecase.da
 import 'package:lotus_news/injector.dart';
 
 class AssistantViewModel extends ChangeNotifier {
-
   final summaryUseCase = injector<SummaryUseCase>();
   final summaryStreamUseCase = injector<SummaryStreamUseCase>();
 
@@ -21,7 +19,8 @@ class AssistantViewModel extends ChangeNotifier {
     _state = SummaryLoading();
     notifyListeners();
     try {
-      final String processedPrompt = ''
+      final String processedPrompt =
+          ''
           'Tóm tắt nội dụng này "$prompt" bằng tiếng Việt dưới 5 câu '
           'và không chứa bất kỳ ký tự đặc biệt nào trong nội dụng tóm tắt';
       final AssistantRequest param = AssistantRequest(prompt: processedPrompt);
@@ -34,23 +33,27 @@ class AssistantViewModel extends ChangeNotifier {
         (data) {
           _state = SummarySuccess(data: data);
           notifyListeners();
-        }
+        },
       );
     } catch (e) {
       _state = SummaryError(message: e.toString());
       rethrow;
     }
   }
-  
+
   Future<void> summaryStream(String prompt) async {
     _state = SummaryLoading();
     notifyListeners();
     try {
-      final String processedPrompt = ''
+      final String processedPrompt =
+          ''
           'Tóm tắt nội dụng này "$prompt" bằng tiếng Việt dưới 5 câu '
           'và không thêm câu "Dưới đây là bản tóm tắt nội dung..."'
           'và không chứa bất kỳ ký tự đặc biệt nào trong nội dụng tóm tắt';
-      final AssistantRequest param = AssistantRequest(prompt: processedPrompt, stream: true);
+      final AssistantRequest param = AssistantRequest(
+        prompt: processedPrompt,
+        stream: true,
+      );
       final stream = summaryStreamUseCase.call(AssistantParam(param));
       stream.listen(
         (event) {
@@ -62,18 +65,18 @@ class AssistantViewModel extends ChangeNotifier {
             (chunk) {
               _streamedText += chunk;
               _state = SummaryStreaming(
-                data: AssistantResponse(response: _streamedText)
+                data: AssistantResponse(response: _streamedText),
               );
               notifyListeners();
-            }
+            },
           );
         },
         onDone: () {
           _state = SummaryStreaming(
-            data: AssistantResponse(response: _streamedText)
+            data: AssistantResponse(response: _streamedText),
           );
           notifyListeners();
-        }
+        },
       );
     } catch (e) {
       rethrow;
@@ -85,9 +88,9 @@ sealed class SummaryState {
   const SummaryState();
 }
 
-class SummaryInitialize extends SummaryState { }
+class SummaryInitialize extends SummaryState {}
 
-class SummaryLoading extends SummaryState { }
+class SummaryLoading extends SummaryState {}
 
 class SummarySuccess extends SummaryState {
   final AssistantResponse data;

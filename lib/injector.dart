@@ -39,51 +39,76 @@ import 'features/news/presentation/view_model/news_voice_view_model.dart';
 final injector = GetIt.instance;
 
 Future<void> init() async {
-
   injector
-  // Network
-  ..registerLazySingleton<Client>(Client.new)
-
-  // ViewModel
-  ..registerLazySingleton<NewsViewModel>(() => NewsViewModel())
-  ..registerLazySingleton<SearchViewModel>(() => SearchViewModel())
-  ..registerLazySingleton<AuthViewModel>(() => AuthViewModel())
-  ..registerLazySingleton<NewsVoiceViewModel>(() => NewsVoiceViewModel())
-  ..registerLazySingleton<AssistantViewModel>(() => AssistantViewModel())
-  ..registerLazySingleton<ChatViewModel>(() => ChatViewModel())
-
-  // UseCases
-  ..registerLazySingleton<GetNewsUseCase>(() => GetNewsUseCase(injector()))
-  ..registerLazySingleton<GetNewsByIdUseCase>(() => GetNewsByIdUseCase(injector()))
-  ..registerLazySingleton<SearchUseCase>(() => SearchUseCase(injector()))
-  ..registerLazySingleton<SignInUseCase>(() => SignInUseCase(injector()))
-  ..registerLazySingleton<SignOutUseCase>(() => SignOutUseCase(injector()))
-  ..registerLazySingleton<SummaryUseCase>(() => SummaryUseCase(injector()))
-  ..registerLazySingleton<SummaryStreamUseCase>(() => SummaryStreamUseCase(injector()))
-  ..registerLazySingleton<ChatUseCase>(() => ChatUseCase(injector()))
-  ..registerLazySingleton<AddMessageUseCase>(() => AddMessageUseCase(injector()))
-
-  // Repositories
-  ..registerLazySingleton<NewsRepository>(() => NewsRepositoryImpl(localDataSource: injector(), remoteDataSource: injector(), networkInfo: injector()))
-  ..registerLazySingleton<SearchRepository>(() => SearchRepositoryImpl(injector()))
-  ..registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(injector()))
-  ..registerLazySingleton<SummaryRepository>(() => SummaryRepositoryImpl(injector()))
-  ..registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl(injector(), injector()))
-
-  // Remote DataSource
-  ..registerLazySingleton<NewsRemoteDataSource>(() => NewsRemoteDataSourceImpl(injector()))
-  ..registerLazySingleton<SearchRemoteDataSource>(() => SearchRemoteDataSourceImpl(injector()))
-  ..registerLazySingleton<AssistantRemoteDataSource>(() => AssistantRemoteDataSourceImpl(injector()))
-  ..registerLazySingleton<ChatRemoteDataSource>(() => ChatRemoteDataSourceImpl(injector()))
-
-  // Local DataSource
-  ..registerLazySingleton<NewsLocalDatasource>(() => NewsLocalDataSourceImpl())
-  ..registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl())
-  ..registerLazySingleton<ChatLocalDataSource>(() => ChatLocalDataSourceImpl())
-    
-  // Network
-  ..registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(injector()))
-  ..registerLazySingleton(() => Connectivity());
-
-
+    // Network
+    ..registerLazySingleton<Client>(Client.new)
+    // ViewModel
+    ..registerLazySingleton<NewsViewModel>(() => NewsViewModel())
+    ..registerLazySingleton<SearchViewModel>(() => SearchViewModel())
+    ..registerLazySingleton<AuthViewModel>(() => AuthViewModel())
+    ..registerLazySingleton<NewsVoiceViewModel>(() => NewsVoiceViewModel())
+    ..registerLazySingleton<AssistantViewModel>(() => AssistantViewModel())
+    ..registerLazySingleton<ChatViewModel>(() => ChatViewModel())
+    // UseCases
+    ..registerLazySingleton<GetNewsUseCase>(() => GetNewsUseCase(injector()))
+    ..registerLazySingleton<GetNewsByIdUseCase>(
+      () => GetNewsByIdUseCase(injector()),
+    )
+    ..registerLazySingleton<SearchUseCase>(() => SearchUseCase(injector()))
+    ..registerLazySingleton<SignInUseCase>(() => SignInUseCase(injector()))
+    ..registerLazySingleton<SignOutUseCase>(() => SignOutUseCase(injector()))
+    ..registerLazySingleton<SummaryUseCase>(() => SummaryUseCase(injector()))
+    ..registerLazySingleton<SummaryStreamUseCase>(
+      () => SummaryStreamUseCase(injector()),
+    )
+    ..registerLazySingleton<ChatUseCase>(() => ChatUseCase(injector()))
+    ..registerLazySingleton<AddMessageUseCase>(
+      () => AddMessageUseCase(injector()),
+    )
+    // Repositories
+    ..registerLazySingleton<NewsRepository>(
+      () => NewsRepositoryImpl(
+        localDataSource: injector(),
+        remoteDataSource: injector(),
+        networkInfo: injector(),
+      ),
+    )
+    ..registerLazySingleton<SearchRepository>(
+      () => SearchRepositoryImpl(injector()),
+    )
+    ..registerLazySingleton<AuthRepository>(
+      () => AuthRepositoryImpl(injector()),
+    )
+    ..registerLazySingleton<SummaryRepository>(
+      () => SummaryRepositoryImpl(injector()),
+    )
+    ..registerLazySingleton<ChatRepository>(
+      () => ChatRepositoryImpl(injector(), injector()),
+    )
+    // Remote DataSource
+    ..registerLazySingleton<NewsRemoteDataSource>(
+      () => NewsRemoteDataSourceImpl(injector()),
+    )
+    ..registerLazySingleton<SearchRemoteDataSource>(
+      () => SearchRemoteDataSourceImpl(injector()),
+    )
+    ..registerLazySingleton<AssistantRemoteDataSource>(
+      () => AssistantRemoteDataSourceImpl(injector()),
+    )
+    ..registerLazySingleton<ChatRemoteDataSource>(
+      () => ChatRemoteDataSourceImpl(injector()),
+    )
+    // Local DataSource
+    ..registerLazySingleton<NewsLocalDatasource>(
+      () => NewsLocalDataSourceImpl(),
+    )
+    ..registerLazySingleton<AuthLocalDataSource>(
+      () => AuthLocalDataSourceImpl(),
+    )
+    ..registerLazySingleton<ChatLocalDataSource>(
+      () => ChatLocalDataSourceImpl(),
+    )
+    // Network
+    ..registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(injector()))
+    ..registerLazySingleton(() => Connectivity());
 }

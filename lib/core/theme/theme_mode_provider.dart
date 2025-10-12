@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeModeProvider extends ChangeNotifier {
-
   late ThemeMode _mode;
   ThemeMode get mode => _mode;
-  ThemeModeProvider() { _init(); }
+  ThemeModeProvider() {
+    _init();
+  }
 
   static final String _keyTheme = 'keyTheme';
 
@@ -25,7 +26,6 @@ class ThemeModeProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 
   void toggle() async {
     final prefs = await SharedPreferences.getInstance();

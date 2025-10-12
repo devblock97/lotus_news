@@ -7,7 +7,6 @@ import 'package:lotus_news/injector.dart';
 import 'news_state.dart';
 
 class NewsViewModel extends ChangeNotifier {
-
   final GetNewsUseCase _getNewsUseCase = GetNewsUseCase(injector());
   final GetNewsByIdUseCase _getNewsByIdUseCase = GetNewsByIdUseCase(injector());
 
@@ -26,7 +25,7 @@ class NewsViewModel extends ChangeNotifier {
         },
         (data) {
           _state = NewsSuccess(data: data);
-        }
+        },
       );
     } catch (_) {
       rethrow;
@@ -40,12 +39,12 @@ class NewsViewModel extends ChangeNotifier {
     try {
       final response = await _getNewsByIdUseCase.call(NewsParam(id: id));
       response.fold(
-          (error) {
-            _state = NewsByIdError(error.message);
-          },
-          (news) {
-            _state = NewsByIdSuccess(news: news);
-          }
+        (error) {
+          _state = NewsByIdError(error.message);
+        },
+        (news) {
+          _state = NewsByIdSuccess(news: news);
+        },
       );
     } catch (_) {
       rethrow;

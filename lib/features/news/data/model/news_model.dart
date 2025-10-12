@@ -25,7 +25,7 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
     this.brandName,
     this.shortDescription,
     this.summary,
-    this.content
+    this.content,
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
@@ -38,23 +38,21 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
       shortDescription: json['short_description'],
       summary: json['summary'],
       avatar: json['avatar'],
+      thumbnail: json['url'],
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'id': id,
-  };
+  Map<String, dynamic> toJson() => {'id': id};
 
   @override
   NewsModel toEntity() {
-    throw NewsEntity(id: id, );
+    throw NewsEntity(id: id);
   }
 
   @override
   NewsEntity fromEntity(NewsModel model) {
     return NewsEntity(id: model.id);
   }
-
 }
 
 class ImageSource {

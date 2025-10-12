@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ProfileButtonAppBar extends StatelessWidget {
@@ -9,7 +8,7 @@ class ProfileButtonAppBar extends StatelessWidget {
     return CircleAvatar(
       maxRadius: 20,
       backgroundColor: Colors.transparent,
-      child: Icon(Icons.person, color: Colors.white,),
+      child: Icon(Icons.person, color: Colors.white),
     );
   }
 }

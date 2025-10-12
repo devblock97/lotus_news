@@ -1,4 +1,3 @@
-
 import 'package:fpdart/fpdart.dart';
 import 'package:lotus_news/core/exceptions/failure.dart';
 import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';

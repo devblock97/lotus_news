@@ -5,15 +5,8 @@ class AssistantResponse {
   const AssistantResponse({required this.response, this.done});
 
   factory AssistantResponse.fromJson(Map<String, dynamic> json) {
-    return AssistantResponse(
-      response: json['response'],
-      done: json['done'],
-    );
+    return AssistantResponse(response: json['response'], done: json['done']);
   }
 
-  Map<String, dynamic> toJson() => {
-    'response': response,
-    'done': done,
-  };
-
+  Map<String, dynamic> toJson() => {'response': response, 'done': done};
 }

@@ -9,7 +9,6 @@ import 'package:lotus_news/features/news/presentation/widgets/card_skeleton.dart
 import 'package:lotus_news/features/news/presentation/widgets/news_card.dart';
 import '../view_model/news_state.dart';
 
-
 class NewsScreen extends StatefulWidget {
   const NewsScreen({super.key});
 
@@ -37,7 +36,11 @@ class _NewsScreenState extends State<NewsScreen> {
           switch (state.state) {
             case NewsSuccess data:
               final news = data.data;
-              if (news.isEmpty) return Center(child: NoDataView(message: 'Không có dữ liệu về tin tức',));
+              if (news.isEmpty) {
+                return Center(
+                  child: NoDataView(message: 'Không có dữ liệu về tin tức'),
+                );
+              }
               return DeviceLayoutBuilder(
                 mobileView: (_) {
                   return ListView.builder(
@@ -47,9 +50,14 @@ class _NewsScreenState extends State<NewsScreen> {
                     itemBuilder: (_, index) {
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (_) => DetailScreen(news: news[index])));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetailScreen(news: news[index]),
+                            ),
+                          );
                         },
-                        child: NewsCard(news: news[index])
+                        child: NewsCard(news: news[index]),
                       );
                     },
                   );
@@ -58,15 +66,15 @@ class _NewsScreenState extends State<NewsScreen> {
                   return GridView.builder(
                     itemCount: news.length,
                     itemBuilder: (_, index) {
-                      return NewsCard(news: news[index], isPhone: false,);
+                      return NewsCard(news: news[index], isPhone: false);
                     },
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 4,
-                      childAspectRatio: 1.1
+                      childAspectRatio: 1.1,
                     ),
                   );
-                }
+                },
               );
             case NewsError message:
               return Center(child: ErrorView(message: message.message));

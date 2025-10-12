@@ -5,13 +5,11 @@ import 'package:equatable/equatable.dart';
 
 import 'network_error_model.dart';
 
-abstract class OfflineException {
+abstract class OfflineException {}
 
-}
+class CacheException extends OfflineException {}
 
-class CacheException extends OfflineException { }
-
-class RetrieveException extends OfflineException { }
+class RetrieveException extends OfflineException {}
 
 class Failure extends Equatable implements Exception {
   late final String message;
@@ -61,7 +59,9 @@ class Failure extends Equatable implements Exception {
         break;
 
       case DioExceptionType.badResponse:
-        final model = NetworkErrorModel.fromJson(dioException.response?.data as Map<String, dynamic>);
+        final model = NetworkErrorModel.fromJson(
+          dioException.response?.data as Map<String, dynamic>,
+        );
         message = model.statusMessage ?? 'Unexpected bad response';
         break;
 

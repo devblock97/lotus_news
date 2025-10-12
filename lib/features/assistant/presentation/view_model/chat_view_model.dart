@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:lotus_news/features/assistant/data/model/assistant_request.dart';
 import 'package:lotus_news/features/assistant/data/model/assistant_response.dart';
 import 'package:lotus_news/features/assistant/domain/usecases/add_message_usecase.dart';
@@ -10,7 +8,6 @@ import 'package:lotus_news/injector.dart';
 import 'package:lotus_news/features/assistant/data/model/chat_message.dart';
 
 class ChatViewModel extends ChangeNotifier {
-
   final ChatUseCase _chatUseCase = injector<ChatUseCase>();
   final AddMessageUseCase _addMessageUseCase = injector<AddMessageUseCase>();
 
@@ -44,19 +41,28 @@ class ChatViewModel extends ChangeNotifier {
             },
             (chunk) {
               _response += chunk.response;
-              _state = Sent(message: ChatMessage(response: _response, isMe: false), response: chunk);
-              messages[streamIndex] = ChatMessage(response: _response, isMe: false);
+              _state = Sent(
+                message: ChatMessage(response: _response, isMe: false),
+                response: chunk,
+              );
+              messages[streamIndex] = ChatMessage(
+                response: _response,
+                isMe: false,
+              );
               notifyListeners();
-            }
+            },
           );
         },
         onDone: () {
           final msg = ChatMessage(response: _response, isMe: false);
-          _state = Sent(message: msg, response: AssistantResponse(response: _response));
+          _state = Sent(
+            message: msg,
+            response: AssistantResponse(response: _response),
+          );
           _addMessageUseCase.call(AddMessageParam(msg));
           streamIndex = -1;
           notifyListeners();
-        }
+        },
       );
     } catch (e) {
       rethrow;
@@ -68,9 +74,9 @@ abstract class ChatState {
   const ChatState();
 }
 
-class PrepareTyping extends ChatState { }
+class PrepareTyping extends ChatState {}
 
-class Sending extends ChatState { }
+class Sending extends ChatState {}
 
 class Sent extends ChatState {
   final ChatMessage message;

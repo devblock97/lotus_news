@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -15,13 +14,13 @@ class NetworkErrorModel extends Equatable {
   factory NetworkErrorModel.fromJson(Map<String, dynamic> json) {
     return NetworkErrorModel(
       statusCode: json['status_code'],
-      statusMessage: json['status_message']
+      statusMessage: json['status_message'],
     );
   }
 
   Map<String, dynamic> toJson() => {
     'status_code': statusCode,
-    'status_message': statusMessage
+    'status_message': statusMessage,
   };
 
   @override

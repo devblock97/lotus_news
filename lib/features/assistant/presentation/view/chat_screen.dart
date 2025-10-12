@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:lotus_news/features/assistant/presentation/view_model/chat_view_model.dart';
@@ -54,12 +53,13 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Consumer<ChatViewModel>(
         builder: (_, state, child) {
-          final isSent = state.state is Sent;
           return Column(
             children: [
               Expanded(
                 child: ValueListenableBuilder(
-                  valueListenable: Hive.box<ChatMessage>('chatBox').listenable(),
+                  valueListenable: Hive.box<ChatMessage>(
+                    'chatBox',
+                  ).listenable(),
                   builder: (context, Box<ChatMessage> box, _) {
                     final messages = box.values.toList();
                     return ListView.builder(
@@ -69,13 +69,19 @@ class _ChatScreenState extends State<ChatScreen> {
                       itemBuilder: (context, index) {
                         final message = messages[index];
                         return Align(
-                          alignment:
-                          message.isMe ? Alignment.centerRight : Alignment.centerLeft,
+                          alignment: message.isMe
+                              ? Alignment.centerRight
+                              : Alignment.centerLeft,
                           child: Container(
                             margin: const EdgeInsets.symmetric(vertical: 4),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 10),
-                            constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.85),
+                              horizontal: 12,
+                              vertical: 10,
+                            ),
+                            constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width * 0.85,
+                            ),
                             decoration: BoxDecoration(
                               color: message.isMe
                                   ? Colors.green
@@ -85,7 +91,10 @@ class _ChatScreenState extends State<ChatScreen> {
                             child: Text(
                               message.response,
                               style: TextStyle(
-                                  color: message.isMe ? Colors.white : Colors.black87),
+                                color: message.isMe
+                                    ? Colors.white
+                                    : Colors.black87,
+                              ),
                             ),
                           ),
                         );
@@ -96,7 +105,10 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
               const Divider(height: 1),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: 10,
+                ),
                 child: Row(
                   children: [
                     Expanded(
@@ -108,7 +120,9 @@ class _ChatScreenState extends State<ChatScreen> {
                           filled: true,
                           fillColor: Colors.grey.shade200,
                           contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 16, vertical: 12),
+                            horizontal: 16,
+                            vertical: 12,
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(24),
                             borderSide: BorderSide.none,
@@ -120,10 +134,10 @@ class _ChatScreenState extends State<ChatScreen> {
                     IconButton(
                       onPressed: () => _sendMessage(_controller.text),
                       icon: Icon(Icons.send, color: theme.primaryColor),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           );
         },

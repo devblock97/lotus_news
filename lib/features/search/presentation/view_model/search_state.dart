@@ -4,7 +4,7 @@ sealed class SearchState {
   const SearchState();
 }
 
-class SearchLoading extends SearchState { }
+class SearchLoading extends SearchState {}
 
 class SearchSuccess extends SearchState {
   final List<NewsModel> data;

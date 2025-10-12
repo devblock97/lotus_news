@@ -1,19 +1,23 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedGradientBorder extends StatefulWidget {
   final String text;
   final bool isStreaming;
 
-  const AnimatedGradientBorder({super.key, required this.text, required this.isStreaming});
+  const AnimatedGradientBorder({
+    super.key,
+    required this.text,
+    required this.isStreaming,
+  });
 
   @override
   State<AnimatedGradientBorder> createState() => _AnimatedGradientBorderState();
 }
 
-class _AnimatedGradientBorderState extends State<AnimatedGradientBorder> with SingleTickerProviderStateMixin {
+class _AnimatedGradientBorderState extends State<AnimatedGradientBorder>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override
@@ -56,7 +60,7 @@ class _AnimatedGradientBorderState extends State<AnimatedGradientBorder> with Si
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: theme.cardTheme.color
+              color: theme.cardTheme.color,
             ),
             child: SelectableText(
               widget.text,
@@ -82,8 +86,6 @@ class _MovableWidgetState extends State<MovableWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Positioned(
       left: position.dx,
       top: position.dy,

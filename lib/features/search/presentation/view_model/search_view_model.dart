@@ -4,7 +4,6 @@ import 'package:lotus_news/features/search/presentation/view_model/search_state.
 import 'package:lotus_news/injector.dart';
 
 class SearchViewModel extends ChangeNotifier {
-
   late SearchState _state;
   SearchState get state => _state;
 
@@ -15,12 +14,12 @@ class SearchViewModel extends ChangeNotifier {
     try {
       final response = await searchUseCase.call(SearchParam(keyword: keyword));
       response.fold(
-          (error) {
-            _state = SearchError(message: error.message);
-          },
-          (data) {
-            _state = SearchSuccess(data: data);
-          }
+        (error) {
+          _state = SearchError(message: error.message);
+        },
+        (data) {
+          _state = SearchSuccess(data: data);
+        },
       );
     } catch (e) {
       _state = SearchError();

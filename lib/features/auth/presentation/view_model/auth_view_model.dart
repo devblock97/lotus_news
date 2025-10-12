@@ -6,7 +6,6 @@ import 'package:lotus_news/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:lotus_news/injector.dart';
 
 class AuthViewModel extends ChangeNotifier {
-
   AuthState _state = AuthInitialize();
 
   AuthState get state => _state;
@@ -16,7 +15,6 @@ class AuthViewModel extends ChangeNotifier {
   SignInUseCase signInUseCase = SignInUseCase(injector());
   SignOutUseCase signOutUseCase = SignOutUseCase(injector());
   Authenticated authenticated = Authenticated(injector());
-
 
   Future<void> signInWithBiometric() async {
     debugPrint('trigger sign in with biometric');
@@ -29,7 +27,7 @@ class AuthViewModel extends ChangeNotifier {
         },
         (success) {
           _state = SignInSuccess();
-        }
+        },
       );
     } catch (e) {
       _state = SignInError();
@@ -47,7 +45,7 @@ class AuthViewModel extends ChangeNotifier {
         },
         (data) {
           _state = SignOutSuccess(data);
-        }
+        },
       );
     } catch (e) {
       _state = SignOutError();
@@ -55,27 +53,23 @@ class AuthViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
-
 }
 
-abstract class AuthState {
+abstract class AuthState {}
 
-}
+class AuthInitialize extends AuthState {}
 
-class AuthInitialize extends AuthState { }
+class SignInSuccess extends AuthState {}
 
-class SignInSuccess extends AuthState { }
+class SignInLoading extends AuthState {}
 
-class SignInLoading extends AuthState { }
-
-class SignInError extends AuthState { }
+class SignInError extends AuthState {}
 
 class SignOutSuccess extends AuthState {
   final bool isSignedOut;
   SignOutSuccess(this.isSignedOut);
 }
 
-class SignOutLoading extends AuthState { }
+class SignOutLoading extends AuthState {}
 
-class SignOutError extends AuthState { }
-
+class SignOutError extends AuthState {}

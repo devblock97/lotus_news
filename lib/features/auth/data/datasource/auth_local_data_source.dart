@@ -12,18 +12,14 @@ abstract class AuthLocalDataSource {
 }
 
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
-
   static final String _isBiometricAuthenticated = 'isBiometricAuthenticated';
 
-  bool _isAuthenticating = false;
   LocalAuthentication auth = LocalAuthentication();
   bool _authenticated = false;
-
 
   @override
   Future<void> signInWithBiometric() async {
     try {
-      _isAuthenticating = true;
       final prefs = await SharedPreferences.getInstance();
       _authenticated = await auth.authenticate(
         localizedReason: 'Quét vân tay của bạn hoặc FaceID để xác thực',
@@ -41,14 +37,13 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
         ],
         options: const AuthenticationOptions(
           stickyAuth: true,
-          biometricOnly: true
-        )
+          biometricOnly: true,
+        ),
       );
       debugPrint('check authenticated status: $_authenticated');
       prefs.setBool(_isBiometricAuthenticated, _authenticated);
-      _isAuthenticating = false;
-    } on PlatformException catch (e) {
-      _isAuthenticating = false;
+    } on PlatformException {
+      throw Exception('Something went wrong');
     }
   }
 
@@ -61,5 +56,4 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
     prefs.setBool(_isBiometricAuthenticated, false);
     return true;
   }
-
 }

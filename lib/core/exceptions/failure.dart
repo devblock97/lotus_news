@@ -12,21 +12,30 @@ class CacheException extends OfflineException {}
 class RetrieveException extends OfflineException {}
 
 class Failure extends Equatable implements Exception {
-  late final String message;
-  late final int? statusCode;
+  final String message;
+  final int? statusCode;
 
-  Failure.fromOffline(OfflineException offlineException) {
+  const Failure({required this.message, this.statusCode});
+
+  factory Failure.fromOffline(OfflineException offlineException) {
+    String message;
     switch (offlineException) {
       case CacheException _:
         message = 'Save data to DB is error';
         break;
       case RetrieveException _:
+        message = 'Retrieve data from DB is error';
+        break;
+      default:
+        message = 'Unknown offline error';
         break;
     }
+    return Failure(message: message);
   }
 
-  Failure.fromNetwork(DioException dioException) {
-    statusCode = dioException.response?.statusCode;
+  factory Failure.fromNetwork(DioException dioException) {
+    String message;
+    int? statusCode = dioException.response?.statusCode;
 
     switch (dioException.type) {
       case DioExceptionType.cancel:
@@ -69,6 +78,7 @@ class Failure extends Equatable implements Exception {
         message = 'Unexpected error occurred';
         break;
     }
+    return Failure(message: message, statusCode: statusCode);
   }
 
   @override

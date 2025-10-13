@@ -5,21 +5,13 @@ import 'package:lotus_news/core/usecases/usecase.dart';
 import 'package:lotus_news/features/news/data/model/news_model.dart';
 import 'package:lotus_news/features/news/domain/repositories/news_repository.dart';
 import 'package:lotus_news/features/news/domain/usecases/get_news_usecase.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'get_news_use_case_test.mocks.dart';
+class MockNewsRepository extends Mock implements NewsRepository {}
 
-@GenerateMocks([NewsRepository])
 void main() {
   late GetNewsUseCase useCase;
   late MockNewsRepository mockNewsRepository;
-
-  setUpAll(() {
-    provideDummy<Either<Failure, List<NewsModel>>>(
-      Left(Failure(message: 'dummy')),
-    );
-  });
 
   setUp(() {
     mockNewsRepository = MockNewsRepository();
@@ -43,16 +35,67 @@ void main() {
     ),
   ];
 
-  test('should get news list from repository', () async {
+  test('should get lists of news from repository', () async {
     // arrange
-    when(mockNewsRepository.getNews()).thenAnswer((_) async => Right(tNews));
+    when(
+      () => mockNewsRepository.getNews(),
+    ).thenAnswer((_) async => Right(tNews));
 
     // act
     final result = await useCase.call(NoParams());
 
     // assert
     expect(result, Right(tNews));
-    verify(mockNewsRepository.getNews());
+    verify(() => mockNewsRepository.getNews()).called(1);
     verifyNoMoreInteractions(mockNewsRepository);
+  });
+
+  test('should return Failure when repository fails', () async {
+    // arrange
+    const tFailure = Failure(message: 'Server error');
+    when(
+      () => mockNewsRepository.getNews(),
+    ).thenAnswer((_) async => const Left(tFailure));
+
+    // act
+    final result = await useCase(NoParams());
+
+    // assert
+    expect(result, const Left(tFailure));
+    verify(() => mockNewsRepository.getNews()).called(1);
+    verifyNoMoreInteractions(mockNewsRepository);
+  });
+
+  test('should return NetworkFailure when no internet connection', () async {
+    // arrange
+    const tFailure = Failure(message: 'No internet connection');
+    when(
+      () => mockNewsRepository.getNews(),
+    ).thenAnswer((_) async => const Left(tFailure));
+
+    // act
+    final result = await useCase(NoParams());
+
+    // assert
+    expect(result, const Left(tFailure));
+    verify(() => mockNewsRepository.getNews()).called(1);
+  });
+
+  test('should return empty list when no news available', () async {
+    // arrange
+    final List<NewsModel> emptyNews = [];
+    when(
+      () => mockNewsRepository.getNews(),
+    ).thenAnswer((_) async => const Right([]));
+
+    // act
+    final result = await useCase(NoParams());
+
+    // assert
+    expect(result, const Right(<NewsModel>[]));
+    result.fold(
+      (failure) => fail('Should return success'),
+      (newsList) => expect(newsList, emptyNews),
+    );
   });
 }

@@ -12,10 +12,10 @@ class CacheException extends OfflineException {}
 class RetrieveException extends OfflineException {}
 
 class Failure extends Equatable implements Exception {
-  final String message;
   final int? statusCode;
+  final String? message;
 
-  const Failure({required this.message, this.statusCode});
+  const Failure({this.message, this.statusCode});
 
   factory Failure.fromOffline(OfflineException offlineException) {
     String message;
@@ -56,7 +56,8 @@ class Failure extends Equatable implements Exception {
 
       case DioExceptionType.connectionError:
         if (dioException.error.runtimeType == SocketException) {
-          message = 'Không thể kết nối đến máy chủ';
+          message =
+              'Không thể kết nối đến máy chủ. Vui lòng kiểm tra lại internet';
           break;
         } else {
           message = 'Unexpected error occurred';

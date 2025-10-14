@@ -1,7 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:lotus_news/core/mapper/mapper.dart';
 import 'package:lotus_news/features/news/domain/entities/news_entity.dart';
 
-class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
+class NewsModel extends Equatable
+    with EntityConvertible<NewsEntity, NewsModel> {
   final String id;
   final String body;
   final String? summary;
@@ -12,7 +14,6 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
   final String? shortDescription;
   final String? avatar;
   final String? brandName;
-  final String? content;
 
   const NewsModel({
     required this.id,
@@ -25,7 +26,6 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
     this.brandName,
     this.shortDescription,
     this.summary,
-    this.content,
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
@@ -53,6 +53,20 @@ class NewsModel with EntityConvertible<NewsEntity, NewsModel> {
   NewsEntity fromEntity(NewsModel model) {
     return NewsEntity(id: model.id);
   }
+
+  @override
+  List<Object?> get props => [
+    id,
+    body,
+    summary,
+    createdAt,
+    score,
+    title,
+    thumbnail,
+    shortDescription,
+    avatar,
+    brandName,
+  ];
 }
 
 class ImageSource {

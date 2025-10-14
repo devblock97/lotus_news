@@ -96,11 +96,9 @@ class _DetailScreenState extends State<DetailScreen>
                 default:
                   return SummarizeAnimatedButton(
                     onPressed: () {
-                      if (widget.news.content != null) {
-                        context.read<AssistantViewModel>().summaryStream(
-                          widget.news.content!,
-                        );
-                      }
+                      context.read<AssistantViewModel>().summaryStream(
+                        widget.news.body,
+                      );
                     },
                   );
               }

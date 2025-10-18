@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:lotus_news/core/constants/app_constants.dart';
+import 'package:lotus_news/core/exceptions/failure.dart';
 import 'package:lotus_news/core/network/client.dart';
 import 'package:lotus_news/features/news/data/model/news_model.dart';
 
@@ -22,8 +24,8 @@ class NewsRemoteDataSourceImpl implements NewsRemoteDataSource {
           .toList();
 
       return data;
-    } catch (_) {
-      rethrow;
+    } on DioException catch (e) {
+      throw Failure.fromNetwork(e);
     }
   }
 

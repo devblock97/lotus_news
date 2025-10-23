@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:lotus_news/features/auth/domain/repositories/auth_repository.dart';
 
 class Authenticated {

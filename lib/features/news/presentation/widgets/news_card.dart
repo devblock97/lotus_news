@@ -27,15 +27,15 @@ class NewsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildThumbnail(context),
+          // _buildThumbnail(context),
           const SizedBox(height: 5),
           _buildTitle(theme),
           const SizedBox(height: 5),
-          _buildBrand(theme),
+          // _buildBrand(theme),
           const SizedBox(height: 5),
-          _buildShortDescription(),
+          // _buildShortDescription(),
           const SizedBox(height: 5),
-          _buildAction(theme),
+          // _buildAction(theme),
         ],
       ),
     );

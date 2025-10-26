@@ -43,7 +43,9 @@ Future<void> init() async {
     // Network
     ..registerLazySingleton<Client>(Client.new)
     // ViewModel
-    ..registerLazySingleton<NewsViewModel>(() => NewsViewModel())
+    ..registerLazySingleton<NewsViewModel>(
+      () => NewsViewModel(injector(), injector()),
+    )
     ..registerLazySingleton<SearchViewModel>(() => SearchViewModel())
     ..registerLazySingleton<AuthViewModel>(() => AuthViewModel())
     ..registerLazySingleton<NewsVoiceViewModel>(() => NewsVoiceViewModel())

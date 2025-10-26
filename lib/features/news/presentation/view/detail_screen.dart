@@ -81,29 +81,7 @@ class _DetailScreenState extends State<DetailScreen>
           const SizedBox(height: 5),
           _buildVoice(theme, widget.news.body),
           const SizedBox(height: 5),
-          Consumer<AssistantViewModel>(
-            builder: (_, state, child) {
-              switch (state.state) {
-                case SummaryStreaming data:
-                  return AnimatedGradientBorder(
-                    text: state.streamedText,
-                    isStreaming: data.data.done ?? false,
-                  );
-                case SummaryLoading _:
-                  return const Center(child: CircularProgressIndicator());
-                case SummaryError _:
-                  return const Center(child: Text('Something went wrong'));
-                default:
-                  return SummarizeAnimatedButton(
-                    onPressed: () {
-                      context.read<AssistantViewModel>().summaryStream(
-                        widget.news.body,
-                      );
-                    },
-                  );
-              }
-            },
-          ),
+          _buildSummarize(),
           const SizedBox(height: 5),
           Text(widget.news.body.trim(), style: theme.textTheme.bodySmall),
         ],
@@ -112,51 +90,77 @@ class _DetailScreenState extends State<DetailScreen>
     );
   }
 
+  Widget _buildSummarize() {
+    return Consumer<AssistantViewModel>(
+      builder: (_, state, child) {
+        switch (state.state) {
+          case SummaryStreaming data:
+            return AnimatedGradientBorder(
+              text: state.streamedText,
+              isStreaming: data.data.done ?? false,
+            );
+          case SummaryLoading _:
+            return const Center(child: CircularProgressIndicator());
+          case SummaryError _:
+            return const Center(child: Text('Something went wrong'));
+          default:
+            return SummarizeAnimatedButton(
+              onPressed: () {
+                context.read<AssistantViewModel>().summaryStream(
+                  widget.news.body,
+                );
+              },
+            );
+        }
+      },
+    );
+  }
+
   Widget _buildHeader(ThemeData theme) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          children: [
-            Container(
-              height: 60,
-              width: 60,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                border: Border(
-                  left: BorderSide(color: theme.primaryColor),
-                  top: BorderSide(color: theme.primaryColor),
-                  right: BorderSide(color: theme.primaryColor),
-                  bottom: BorderSide(color: theme.primaryColor),
-                ),
-              ),
-              child: CachedNetworkImage(
-                imageUrl: widget.news.avatar ?? '',
-                height: 100,
-                width: 100,
-                fit: BoxFit.fitHeight,
-              ),
+        Container(
+          height: 60,
+          width: 60,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Colors.white,
+            border: Border(
+              left: BorderSide(color: theme.primaryColor),
+              top: BorderSide(color: theme.primaryColor),
+              right: BorderSide(color: theme.primaryColor),
+              bottom: BorderSide(color: theme.primaryColor),
             ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.news.title,
-                  maxLines: 2,
-                  softWrap: true,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.textTheme.titleSmall,
-                ),
-                Text(
-                  DateFormat('dd/MM/yyyy').format(DateTime.now()),
-                  style: theme.textTheme.labelSmall,
-                ),
-              ],
-            ),
-          ],
+          ),
+          child: CachedNetworkImage(
+            imageUrl: widget.news.avatar ?? '',
+            height: 100,
+            width: 100,
+            fit: BoxFit.fitHeight,
+          ),
         ),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.news.title,
+                maxLines: 2,
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                style: theme.textTheme.titleSmall,
+              ),
+              Text(
+                DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                style: theme.textTheme.labelSmall,
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 10),
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(

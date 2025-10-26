@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'network_error_model.dart';
 
@@ -36,6 +37,8 @@ class Failure extends Equatable implements Exception {
   factory Failure.fromNetwork(DioException dioException) {
     String message;
     int? statusCode = dioException.response?.statusCode;
+
+    debugPrint('network error: ${dioException.type.toString()}');
 
     switch (dioException.type) {
       case DioExceptionType.cancel:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lotus_news/injector.dart';
 import 'package:provider/provider.dart';
 import 'package:lotus_news/core/components/device_layout_builder.dart';
 import 'package:lotus_news/core/components/error_view.dart';
@@ -30,7 +31,7 @@ class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => NewsViewModel()..getNews(),
+      create: (_) => NewsViewModel(injector(), injector())..getNews(),
       child: Consumer<NewsViewModel>(
         builder: (_, state, _) {
           switch (state.state) {

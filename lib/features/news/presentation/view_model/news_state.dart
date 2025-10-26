@@ -4,6 +4,8 @@ abstract class NewsState {
   const NewsState();
 }
 
+final class NewsInitialize extends NewsState {}
+
 final class NewsLoading extends NewsState {
   const NewsLoading();
 }

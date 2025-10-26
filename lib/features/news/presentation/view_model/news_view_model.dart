@@ -2,21 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:lotus_news/core/usecases/usecase.dart';
 import 'package:lotus_news/features/news/domain/usecases/get_news_by_id_usecase.dart';
 import 'package:lotus_news/features/news/domain/usecases/get_news_usecase.dart';
-import 'package:lotus_news/injector.dart';
 
 import 'news_state.dart';
 
 class NewsViewModel extends ChangeNotifier {
-  final GetNewsUseCase _getNewsUseCase = GetNewsUseCase(injector());
-  final GetNewsByIdUseCase _getNewsByIdUseCase = GetNewsByIdUseCase(injector());
+  final GetNewsUseCase _getNewsUseCase;
+  final GetNewsByIdUseCase _getNewsByIdUseCase;
 
-  NewsState _state = NewsLoading();
+  NewsViewModel(this._getNewsUseCase, this._getNewsByIdUseCase);
+
+  NewsState _state = NewsInitialize();
   NewsState get state => _state;
 
   Future<void> getNews() async {
     _state = NewsLoading();
+    notifyListeners();
     try {
-      injector.call<GetNewsUseCase>();
       final response = await _getNewsUseCase.call(NoParams());
       response.fold(
         (error) {
@@ -27,15 +28,16 @@ class NewsViewModel extends ChangeNotifier {
           _state = NewsSuccess(data: data);
         },
       );
-    } catch (_) {
-      rethrow;
-    } finally {
+      notifyListeners();
+    } catch (e) {
+      _state = NewsError('Unexpected error: $e');
       notifyListeners();
     }
   }
 
   Future<void> getNewsById(String id) async {
     _state = NewsByIdLoading();
+    notifyListeners();
     try {
       final response = await _getNewsByIdUseCase.call(NewsParam(id: id));
       response.fold(
@@ -46,8 +48,9 @@ class NewsViewModel extends ChangeNotifier {
           _state = NewsByIdSuccess(news: news);
         },
       );
-    } catch (_) {
-      rethrow;
+      notifyListeners();
+    } catch (e) {
+      _state = NewsByIdError('Unexpected error: $e');
     } finally {
       notifyListeners();
     }

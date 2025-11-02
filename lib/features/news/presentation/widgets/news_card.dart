@@ -1,6 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lotus_news/features/news/data/model/news_model.dart';
+import 'package:lotus_news/features/news/presentation/view_model/vote_state.dart';
+import 'package:lotus_news/features/news/presentation/view_model/vote_view_model.dart';
+import 'package:lotus_news/injector.dart';
+import 'package:provider/provider.dart';
 
 class NewsCard extends StatelessWidget {
   const NewsCard({super.key, required this.news, this.isPhone = true});
@@ -124,9 +128,32 @@ class NewsCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.favorite_outline, color: theme.iconTheme.color),
+          ChangeNotifierProvider(
+            create: (context) => VoteViewModel(injector()),
+            child: Consumer<VoteViewModel>(
+              key: Key('voteKey'),
+              builder: (context, state, child) {
+                debugPrint('vote state: ${state.state}');
+                if (state.state is VoteSuccess) {
+                  debugPrint('trigger state vote success');
+                  return IconButton(
+                    onPressed: () {
+                      context.read<VoteViewModel>().voteNews(news.id);
+                    },
+                    icon: Icon(Icons.favorite, color: Colors.red),
+                  );
+                }
+                return IconButton(
+                  onPressed: () {
+                    context.read<VoteViewModel>().voteNews(news.id);
+                  },
+                  icon: Icon(
+                    Icons.favorite_outline,
+                    color: theme.iconTheme.color,
+                  ),
+                );
+              },
+            ),
           ),
           IconButton(
             onPressed: () {},

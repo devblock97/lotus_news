@@ -7,4 +7,6 @@ abstract class NewsRepository {
       throw UnimplementedError('Stub');
   Future<Either<Failure, NewsModel>> getNewsById(String id) =>
       throw UnimplementedError('Stub');
+  Future<Either<Failure, int>> voteNews(String newsId) =>
+      throw UnimplementedError('Stub');
 }

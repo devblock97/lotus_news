@@ -38,4 +38,18 @@ class NewsRepositoryImpl implements NewsRepository {
   Future<Either<Failure, NewsModel>> getNewsById(String id) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Either<Failure, int>> voteNews(String newsId) async {
+    try {
+      if (await networkInfo.isConnected) {
+        await remoteDataSource.voteNews(newsId);
+        return Right(1);
+      }
+
+      throw Exception();
+    } on DioException catch (e) {
+      return Left(Failure.fromNetwork(e));
+    }
+  }
 }

@@ -154,7 +154,9 @@ class _DetailScreenState extends State<DetailScreen>
                 style: theme.textTheme.titleSmall,
               ),
               Text(
-                DateFormat('dd/MM/yyyy').format(DateTime.now()),
+                DateFormat(
+                  'dd/MM/yyyy',
+                ).format(DateTime.parse(widget.news.createdAt)),
                 style: theme.textTheme.labelSmall,
               ),
             ],

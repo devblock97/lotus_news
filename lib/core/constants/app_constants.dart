@@ -21,9 +21,13 @@ class AppConstants {
     }
   }
 
-  static String token = '';
+  static String token =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI5NWE3YzljZi1hMDUyLTRiZmUtYmFjYy05NDBhMGU1NjA0MGUiLCJleHAiOjE3NjIwOTQ3Mjd9.-860EjmHmqgjxxjkuzuF8SwGumu-lj0oECrdJSb7LXA';
 
   static String posts = '/api/posts';
+  static String voteNews(String postId) {
+    return '/api/posts/$postId/vote';
+  }
 
   static String search(String keyword) {
     return '/api/news/search?q=$keyword';

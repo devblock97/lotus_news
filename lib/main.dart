@@ -55,6 +55,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init()),
         ChangeNotifierProvider(create: (_) => AssistantViewModel()),
         ChangeNotifierProvider(create: (_) => ChatViewModel()),
+        // ChangeNotifierProvider(create: (_) => VoteViewModel(injector()))
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {

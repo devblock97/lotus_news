@@ -27,7 +27,9 @@ import 'package:lotus_news/features/news/data/repositories/news_repository_impl.
 import 'package:lotus_news/features/news/domain/repositories/news_repository.dart';
 import 'package:lotus_news/features/news/domain/usecases/get_news_by_id_usecase.dart';
 import 'package:lotus_news/features/news/domain/usecases/get_news_usecase.dart';
+import 'package:lotus_news/features/news/domain/usecases/vote_news_usecase.dart';
 import 'package:lotus_news/features/news/presentation/view_model/news_view_model.dart';
+import 'package:lotus_news/features/news/presentation/view_model/vote_view_model.dart';
 import 'package:lotus_news/features/search/data/datasource/search_remote_datasource.dart';
 import 'package:lotus_news/features/search/data/repositories/search_repository_impl.dart';
 import 'package:lotus_news/features/search/domain/repositories/search_repository.dart';
@@ -51,6 +53,7 @@ Future<void> init() async {
     ..registerLazySingleton<NewsVoiceViewModel>(() => NewsVoiceViewModel())
     ..registerLazySingleton<AssistantViewModel>(() => AssistantViewModel())
     ..registerLazySingleton<ChatViewModel>(() => ChatViewModel())
+    ..registerLazySingleton<VoteViewModel>(() => VoteViewModel(injector()))
     // UseCases
     ..registerLazySingleton<GetNewsUseCase>(() => GetNewsUseCase(injector()))
     ..registerLazySingleton<GetNewsByIdUseCase>(
@@ -67,6 +70,7 @@ Future<void> init() async {
     ..registerLazySingleton<AddMessageUseCase>(
       () => AddMessageUseCase(injector()),
     )
+    ..registerLazySingleton<VoteNewsUseCase>(() => VoteNewsUseCase(injector()))
     // Repositories
     ..registerLazySingleton<NewsRepository>(
       () => NewsRepositoryImpl(

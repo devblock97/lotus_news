@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:lotus_news/features/news/data/model/news_model.dart';
 import 'package:lotus_news/features/news/presentation/view_model/vote_state.dart';
 import 'package:lotus_news/features/news/presentation/view_model/vote_view_model.dart';
-import 'package:lotus_news/injector.dart';
 import 'package:provider/provider.dart';
 
 class NewsCard extends StatelessWidget {
@@ -39,7 +38,7 @@ class NewsCard extends StatelessWidget {
           const SizedBox(height: 5),
           _buildShortDescription(),
           const SizedBox(height: 5),
-          _buildAction(theme),
+          _buildAction(context, theme),
         ],
       ),
     );
@@ -52,12 +51,17 @@ class NewsCard extends StatelessWidget {
         topRight: Radius.circular(16),
       ),
       child: CachedNetworkImage(
+        key: Key('thumbnail_${news.id}'),
         imageUrl:
             news.thumbnail ??
             'https://tse1.mm.bing.net/th?q=Cnn%2010%20March%2016%202024%20Date&w=1280&h=720&c=5&rs=1&p=0',
         height: MediaQuery.of(context).size.height * (isPhone ? 0.25 : 0.45),
         width: MediaQuery.of(context).size.width,
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
+        errorWidget: (context, url, error) => Container(
+          color: Colors.grey[300],
+          child: const Icon(Icons.image_not_supported),
+        ),
       ),
     );
   }
@@ -65,14 +69,13 @@ class NewsCard extends StatelessWidget {
   Widget _buildTitle(ThemeData theme) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Expanded(
-        child: Text(
-          news.title,
-          style: theme.textTheme.titleMedium,
-          maxLines: 1,
-          softWrap: true,
-          overflow: TextOverflow.ellipsis,
-        ),
+      child: Text(
+        key: Key('title_${news.id}'),
+        news.title,
+        style: theme.textTheme.titleMedium,
+        maxLines: 1,
+        softWrap: true,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }
@@ -112,6 +115,7 @@ class NewsCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Text(
+        key: Key('description_${news.id}'),
         news.shortDescription ?? '',
         maxLines: isPhone ? 3 : 4,
         softWrap: true,
@@ -121,39 +125,23 @@ class NewsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildAction(ThemeData theme) {
+  Widget _buildAction(BuildContext context, ThemeData theme) {
+    final state = context.watch<VoteViewModel>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ChangeNotifierProvider(
-            create: (context) => VoteViewModel(injector()),
-            child: Consumer<VoteViewModel>(
-              key: Key('voteKey'),
-              builder: (context, state, child) {
-                debugPrint('vote state: ${state.state}');
-                if (state.state is VoteSuccess) {
-                  debugPrint('trigger state vote success');
-                  return IconButton(
-                    onPressed: () {
-                      context.read<VoteViewModel>().voteNews(news.id);
-                    },
-                    icon: Icon(Icons.favorite, color: Colors.red),
-                  );
-                }
-                return IconButton(
-                  onPressed: () {
-                    context.read<VoteViewModel>().voteNews(news.id);
-                  },
-                  icon: Icon(
-                    Icons.favorite_outline,
-                    color: theme.iconTheme.color,
-                  ),
-                );
-              },
-            ),
+          IconButton(
+            key: Key('vote_button_${news.id}'),
+            onPressed: () {
+              context.read<VoteViewModel>().voteNews(news.id);
+            },
+            icon: state.state is VoteSuccess
+                ? Icon(Icons.favorite, color: Colors.red)
+                : Icon(Icons.favorite_outline, color: theme.iconTheme.color),
           ),
           IconButton(
             onPressed: () {},

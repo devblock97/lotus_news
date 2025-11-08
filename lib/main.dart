@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:lotus_news/features/news/presentation/view_model/news_view_model.dart';
 import 'package:lotus_news/features/news/presentation/widgets/post_stream.dart';
 import 'package:provider/provider.dart';
 import 'package:lotus_news/core/components/profile_button_app_bar.dart';
@@ -20,6 +21,7 @@ import 'package:lotus_news/features/search/presentation/view_model/search_view_m
 import 'package:lotus_news/injector.dart';
 
 import 'core/theme/app_theme.dart';
+import 'features/news/presentation/view_model/vote_view_model.dart';
 import 'features/profile/presentation/view/profile_screen.dart';
 import 'features/search/presentation/view/search_screen.dart';
 
@@ -55,7 +57,10 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init()),
         ChangeNotifierProvider(create: (_) => AssistantViewModel()),
         ChangeNotifierProvider(create: (_) => ChatViewModel()),
-        // ChangeNotifierProvider(create: (_) => VoteViewModel(injector()))
+        ChangeNotifierProvider(
+          create: (_) => NewsViewModel(injector(), injector())..getNews(),
+        ),
+        ChangeNotifierProvider(create: (_) => VoteViewModel(injector())),
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {

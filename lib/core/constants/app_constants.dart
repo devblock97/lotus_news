@@ -29,6 +29,8 @@ class AppConstants {
     return '/api/posts/$postId/vote';
   }
 
+  static String login = '/api/login';
+
   static String search(String keyword) {
     return '/api/news/search?q=$keyword';
   }

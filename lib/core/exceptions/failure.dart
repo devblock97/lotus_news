@@ -10,7 +10,11 @@ abstract class OfflineException {}
 
 class CacheException extends OfflineException {}
 
-class RetrieveException extends OfflineException {}
+class RetrieveException extends OfflineException {
+  String? message;
+
+  RetrieveException(this.message);
+}
 
 class Failure extends Equatable implements Exception {
   final int? statusCode;

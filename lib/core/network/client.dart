@@ -6,11 +6,13 @@ import 'package:flutter/foundation.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../constants/app_constants.dart';
+import 'auth_interceptor.dart';
 
 class Client {
   late final Dio _dio;
+  final AuthInterceptor authInterceptor;
 
-  Client() {
+  Client({required this.authInterceptor}) {
     _dio = Dio();
 
     _dio
@@ -23,13 +25,21 @@ class Client {
       }
       ..options.connectTimeout = const Duration(milliseconds: 15000)
       ..options.connectTimeout = const Duration(milliseconds: 15000)
-      ..options.responseType = ResponseType.json
-      ..interceptors.add(
-        PrettyDioLogger(
-          compact: false,
-          logPrint: (object) => log(object.toString()),
-        ),
-      );
+      ..options.responseType = ResponseType.json;
+
+    _setupInterceptor();
+  }
+
+  void _setupInterceptor() {
+    _dio.interceptors.clear();
+    _dio.interceptors.add(authInterceptor);
+    _dio.options.headers['Content-type'] = 'application/json';
+    _dio.interceptors.add(
+      PrettyDioLogger(
+        compact: false,
+        logPrint: (object) => log(object.toString()),
+      ),
+    );
   }
 
   Future<Response<dynamic>> get(

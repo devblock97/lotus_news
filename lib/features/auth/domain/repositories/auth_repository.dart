@@ -1,8 +1,10 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:lotus_news/core/exceptions/failure.dart';
+import 'package:lotus_news/features/auth/data/models/auth_model.dart';
 
 abstract class AuthRepository {
-  Future<Either<Failure, void>> signIn() => throw UnimplementedError('Stub');
+  Future<Either<Failure, AuthModel>> signIn(String email, String password) =>
+      throw UnimplementedError('Stub');
 
   Future<Either<Failure, bool>> signOut() => throw UnimplementedError('Stub');
 
@@ -12,5 +14,6 @@ abstract class AuthRepository {
   Future<Either<Failure, void>> signInWithThirdParty() =>
       throw UnimplementedError('Stub');
 
-  bool get isBiometricAuthenticated;
+  Future<Either<Failure, bool>> isAuthenticated() =>
+      throw UnimplementedError('Stub');
 }

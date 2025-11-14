@@ -1,5 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lotus_news/core/network/auth_interceptor.dart';
 import 'package:lotus_news/core/network/client.dart';
 import 'package:lotus_news/core/network/network_info.dart';
 import 'package:lotus_news/features/assistant/data/datasource/local/chat_local_data_source.dart';
@@ -16,8 +17,11 @@ import 'package:lotus_news/features/assistant/domain/usecases/summary_usecase.da
 import 'package:lotus_news/features/assistant/presentation/view_model/assistant_view_model.dart';
 import 'package:lotus_news/features/assistant/presentation/view_model/chat_view_model.dart';
 import 'package:lotus_news/features/auth/data/datasource/auth_local_data_source.dart';
+import 'package:lotus_news/features/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:lotus_news/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:lotus_news/features/auth/data/repositories/auth_storage_repository_impl.dart';
 import 'package:lotus_news/features/auth/domain/repositories/auth_repository.dart';
+import 'package:lotus_news/features/auth/domain/repositories/auth_storage_repository.dart';
 import 'package:lotus_news/features/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:lotus_news/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:lotus_news/features/auth/presentation/view_model/auth_view_model.dart';
@@ -43,7 +47,13 @@ final injector = GetIt.instance;
 Future<void> init() async {
   injector
     // Network
-    ..registerLazySingleton<Client>(Client.new)
+    ..registerLazySingleton<AuthStorageRepository>(
+      () => AuthStorageRepositoryImpl(injector()),
+    )
+    ..registerLazySingleton(
+      () => AuthInterceptor(authStorageRepository: injector()),
+    )
+    ..registerLazySingleton<Client>(() => Client(authInterceptor: injector()))
     // ViewModel
     ..registerLazySingleton<NewsViewModel>(
       () => NewsViewModel(injector(), injector()),
@@ -83,7 +93,7 @@ Future<void> init() async {
       () => SearchRepositoryImpl(injector()),
     )
     ..registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(injector()),
+      () => AuthRepositoryImpl(injector(), injector(), injector()),
     )
     ..registerLazySingleton<SummaryRepository>(
       () => SummaryRepositoryImpl(injector()),
@@ -103,6 +113,9 @@ Future<void> init() async {
     )
     ..registerLazySingleton<ChatRemoteDataSource>(
       () => ChatRemoteDataSourceImpl(injector()),
+    )
+    ..registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(injector()),
     )
     // Local DataSource
     ..registerLazySingleton<NewsLocalDatasource>(

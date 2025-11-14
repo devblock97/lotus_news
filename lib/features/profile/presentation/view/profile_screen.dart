@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:lotus_news/core/theme/theme_mode_provider.dart';
 import 'package:lotus_news/features/assistant/presentation/view/chat_screen.dart';
-import 'package:lotus_news/features/auth/presentation/view/auth_screen.dart';
+import 'package:lotus_news/features/auth/presentation/view/login_screen.dart';
 import 'package:lotus_news/features/auth/presentation/view_model/auth_view_model.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -13,6 +13,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AuthViewModel>().isAuthenticated();
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -175,39 +181,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Consumer<AuthViewModel>(
             builder: (_, state, child) {
               debugPrint('sign out state: ${state.state}');
-              switch (state.state) {
-                case SignOutSuccess data:
-                  return ListTile(
-                    onTap: () async {
-                      if (data.isSignedOut) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (_) => AuthScreen()),
-                        );
-                      } else {
-                        context.read<AuthViewModel>().signOUt();
-                      }
-                    },
-                    leading: Icon(Icons.logout_outlined, color: Colors.red),
-                    title: Text(
-                      data.isSignedOut ? 'Đăng nhập' : 'Đăng xuất',
-                      style: theme.textTheme.labelMedium!.copyWith(
-                        color: theme.primaryColor,
-                      ),
-                    ),
-                    trailing: Icon(
-                      Icons.chevron_right,
-                      color: theme.primaryColor,
-                    ),
-                  );
-              }
+              final isAuthenticated = state.state is HasAuthenticated;
               return ListTile(
                 onTap: () async {
-                  context.read<AuthViewModel>().signOUt();
+                  if (isAuthenticated) {
+                    context.read<AuthViewModel>().signOUt();
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => LoginScreen()),
+                    );
+                  }
                 },
                 leading: Icon(Icons.logout_outlined, color: Colors.red),
                 title: Text(
-                  AuthViewModel().isAuthenticated ? 'Đăng xuất' : 'Đăng nhập',
+                  isAuthenticated ? 'Đăng xuất' : 'Đăng nhập',
                   style: theme.textTheme.labelMedium!.copyWith(
                     color: theme.primaryColor,
                   ),

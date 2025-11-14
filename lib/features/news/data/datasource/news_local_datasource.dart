@@ -41,7 +41,6 @@ class NewsLocalDataSourceImpl implements NewsLocalDatasource {
           .map((n) => jsonEncode(n.toJson()))
           .toList();
       await pref.setStringList(newsKey, newsJsonList);
-      debugPrint('trigger saveNews local data source: ${jsonEncode(news)}');
     } catch (e) {
       debugPrint('NewsLocalDataSource [saveNews] exception: ${e.toString()}');
       rethrow;

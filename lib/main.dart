@@ -61,6 +61,7 @@ class App extends StatelessWidget {
           create: (_) => NewsViewModel(injector(), injector())..getNews(),
         ),
         ChangeNotifierProvider(create: (_) => VoteViewModel(injector())),
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {

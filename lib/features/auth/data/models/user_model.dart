@@ -1,4 +1,6 @@
-class UserModel {
+import 'package:equatable/equatable.dart';
+
+class UserModel extends Equatable {
   final String avatar;
   final String createdAt;
   final String email;
@@ -25,9 +27,12 @@ class UserModel {
 
   Map<String, dynamic> toJson() => {
     'avatar': avatar,
-    'created': createdAt,
+    'created_at': createdAt,
     'email': email,
     'id': id,
     'username': username,
   };
+
+  @override
+  List<Object?> get props => [id, avatar, createdAt, email, username];
 }

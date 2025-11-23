@@ -39,7 +39,7 @@ void main() {
       // arrange
       final result = tNews.toJson();
 
-      // assert
+      // action
       final expectedResult = {"id": "ce66daff-1d01-484c-98de-1b054b3c2938"};
 
       // assert

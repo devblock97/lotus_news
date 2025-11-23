@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:lotus_news/features/auth/data/models/user_model.dart';
 
-class AuthModel {
+class AuthModel extends Equatable {
   final String token;
   final UserModel user;
 
@@ -14,4 +15,7 @@ class AuthModel {
   }
 
   Map<String, dynamic> toJson() => {'token': token, 'user': user.toJson()};
+
+  @override
+  List<Object?> get props => [token, user];
 }

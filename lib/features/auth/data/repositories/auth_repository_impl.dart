@@ -40,7 +40,7 @@ class AuthRepositoryImpl implements AuthRepository {
         final response = await _remoteDataSource.signIn(email, password);
         await _localDataSource.saveAuthUser(response);
         await _localDataSource.saveToken(response.token);
-        _localDataSource.isAuthenticated;
+        await _localDataSource.isAuthenticated();
         return Right(response);
       } on DioException catch (e) {
         return Left(Failure.fromNetwork(e));

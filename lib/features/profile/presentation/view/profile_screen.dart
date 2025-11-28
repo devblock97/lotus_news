@@ -13,10 +13,22 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final TextEditingController _oldPassword = TextEditingController();
+  final TextEditingController _newPassword = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     context.read<AuthViewModel>().isAuthenticated();
+  }
+
+  @override
+  void dispose() {
+    _oldPassword.dispose();
+    _newPassword.dispose();
+    _confirmPassword.dispose();
+    super.dispose();
   }
 
   @override
@@ -177,6 +189,167 @@ class _ProfileScreenState extends State<ProfileScreen> {
             leading: Icon(Icons.info_outline),
             title: Text('Giới thiệu'),
             trailing: Icon(Icons.chevron_right),
+          ),
+          Consumer<AuthViewModel>(
+            builder: (_, viewModel, __) {
+              if (viewModel.state is ChangePasswordProcessing) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  showDialog(
+                    context: context,
+                    builder: (_) {
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                  );
+                });
+              }
+              if (viewModel.state is ChangePasswordSuccess) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Đổi mật khẩu thành công'),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                });
+              }
+              if (viewModel.state is ChangePasswordError) {
+                final errorState = viewModel.state as ChangePasswordError;
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pop(context);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(errorState.message ?? 'Đã có lỗi xảy ra'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                });
+              }
+              return ListTile(
+                onTap: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (ctx) {
+                      return StatefulBuilder(
+                        builder: (BuildContext context, StateSetter setState) {
+                          return Container(
+                            height: MediaQuery.of(context).size.height * 0.4,
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.all(8),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(8),
+                                topRight: Radius.circular(8),
+                              ),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: 5,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                ),
+                                const SizedBox(height: 25),
+                                TextFormField(
+                                  controller: _oldPassword,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Nhập mật khẩu cũ',
+                                    disabledBorder: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(),
+                                    errorBorder: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFormField(
+                                  controller: _newPassword,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Nhập mật khẩu mới',
+                                    disabledBorder: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(),
+                                    errorBorder: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                TextFormField(
+                                  controller: _confirmPassword,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Xác nhận mật khẩu',
+                                    disabledBorder: OutlineInputBorder(),
+                                    enabledBorder: OutlineInputBorder(),
+                                    errorBorder: OutlineInputBorder(),
+                                    focusedBorder: OutlineInputBorder(),
+                                  ),
+                                ),
+                                const SizedBox(height: 15),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    if (_oldPassword.text.isEmpty ||
+                                        _newPassword.text.isEmpty ||
+                                        _confirmPassword.text.isEmpty) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Vui lòng nhập đầy đủ thông tin',
+                                          ),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    if (_newPassword.text !=
+                                        _confirmPassword.text) {
+                                      ScaffoldMessenger.of(
+                                        context,
+                                      ).showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                            'Mật khẩu mới không trùng khớp',
+                                          ),
+                                          backgroundColor: Colors.red,
+                                        ),
+                                      );
+
+                                      return;
+                                    }
+                                    Navigator.pop(ctx);
+                                    context
+                                        .read<AuthViewModel>()
+                                        .changePassword(
+                                          _oldPassword.text,
+                                          _newPassword.text,
+                                        );
+                                  },
+                                  style: const ButtonStyle(
+                                    backgroundColor:
+                                        WidgetStatePropertyAll<Color>(
+                                          Colors.green,
+                                        ),
+                                  ),
+                                  child: const Text(
+                                    'Đổi mật khẩu',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+                leading: const Icon(Icons.published_with_changes),
+                title: const Text('Đổi mật khẩu'),
+                trailing: const Icon(Icons.chevron_right),
+              );
+            },
           ),
           Consumer<AuthViewModel>(
             builder: (_, state, child) {

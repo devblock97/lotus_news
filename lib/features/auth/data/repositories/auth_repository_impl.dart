@@ -5,6 +5,7 @@ import 'package:lotus_news/core/network/network_info.dart';
 import 'package:lotus_news/features/auth/data/datasource/auth_local_data_source.dart';
 import 'package:lotus_news/features/auth/data/datasource/auth_remote_data_source.dart';
 import 'package:lotus_news/features/auth/data/models/auth_model.dart';
+import 'package:lotus_news/features/auth/data/models/password_update_model.dart';
 import 'package:lotus_news/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
@@ -74,8 +75,21 @@ class AuthRepositoryImpl implements AuthRepository {
     try {
       final response = await _localDataSource.signInWithBiometric();
       return Right(response);
-    } catch (_) {
-      rethrow;
+    } on DioException catch (e) {
+      return Left(Failure.fromNetwork(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, PasswordUpdateModel>> changePassword(
+    String oldPass,
+    String newPass,
+  ) async {
+    try {
+      final response = await _remoteDataSource.changePassword(oldPass, newPass);
+      return Right(response);
+    } on DioException catch (e) {
+      return Left(Failure.fromNetwork(e));
     }
   }
 }

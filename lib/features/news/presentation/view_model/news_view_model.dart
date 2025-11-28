@@ -15,6 +15,7 @@ class NewsViewModel extends ChangeNotifier {
   NewsState get state => _state;
 
   Future<void> getNews() async {
+    debugPrint('get new here');
     _state = NewsLoading();
     notifyListeners();
     try {

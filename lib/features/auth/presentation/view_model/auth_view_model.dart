@@ -1,25 +1,33 @@
 import 'package:flutter/widgets.dart';
 import 'package:lotus_news/core/usecases/usecase.dart';
 import 'package:lotus_news/features/auth/data/models/auth_model.dart';
+import 'package:lotus_news/features/auth/data/models/password_update_model.dart';
 import 'package:lotus_news/features/auth/domain/usecases/authenticated_usecase.dart';
+import 'package:lotus_news/features/auth/domain/usecases/change_password_usecase.dart';
 import 'package:lotus_news/features/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:lotus_news/features/auth/domain/usecases/sign_out_usecase.dart';
-import 'package:lotus_news/injector.dart';
 
 class AuthViewModel extends ChangeNotifier {
   AuthState _state = AuthInitialize();
 
   AuthState get state => _state;
 
-  SignInUseCase signInUseCase = SignInUseCase(injector());
-  SignOutUseCase signOutUseCase = SignOutUseCase(injector());
-  Authenticated authenticated = Authenticated(injector());
+  final SignInUseCase _signInUseCase;
+  final SignOutUseCase _signOutUseCase;
+  final AuthenticatedUseCase _authenticated;
+  final ChangePasswordUseCase _changePasswordUseCase;
+  AuthViewModel(
+    this._signInUseCase,
+    this._signOutUseCase,
+    this._authenticated,
+    this._changePasswordUseCase,
+  );
 
   Future<void> signIn(String email, String password) async {
     _state = SignOutLoading();
     notifyListeners();
     try {
-      final response = await signInUseCase.call(
+      final response = await _signInUseCase.call(
         SignInParam(email: email, password: password),
       );
       response.fold(
@@ -39,7 +47,7 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> signOUt() async {
     try {
-      final response = await signOutUseCase.call(NoParams());
+      final response = await _signOutUseCase.call(NoParams());
       response.fold(
         (error) {
           _state = SignOutError();
@@ -57,7 +65,7 @@ class AuthViewModel extends ChangeNotifier {
 
   Future<void> isAuthenticated() async {
     try {
-      final response = await authenticated.call(NoParams());
+      final response = await _authenticated.call(NoParams());
       response.fold(
         (error) {
           _state = AuthenticatedError();
@@ -73,6 +81,32 @@ class AuthViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       _state = AuthenticatedError();
+      notifyListeners();
+    }
+  }
+
+  Future<void> changePassword(String oldPass, String newPass) async {
+    _state = ChangePasswordProcessing();
+    notifyListeners();
+    try {
+      final response = await _changePasswordUseCase.call(
+        ChangePasswordParam(oldPass: oldPass, newPass: newPass),
+      );
+      debugPrint('check point 1');
+      response.fold(
+        (error) {
+          _state = ChangePasswordError(
+            error.message ?? 'Something went wrong. Please try again',
+          );
+        },
+        (success) {
+          _state = ChangePasswordSuccess(data: success);
+        },
+      );
+      debugPrint('check point 2');
+      notifyListeners();
+    } catch (e) {
+      _state = ChangePasswordError(e.toString());
       notifyListeners();
     }
   }
@@ -107,4 +141,16 @@ class UnAuthenticated extends AuthState {}
 class AuthenticatedError extends AuthState {
   final String? message;
   AuthenticatedError({this.message});
+}
+
+class ChangePasswordProcessing extends AuthState {}
+
+class ChangePasswordSuccess extends AuthState {
+  final PasswordUpdateModel data;
+  ChangePasswordSuccess({required this.data});
+}
+
+class ChangePasswordError extends AuthState {
+  final String? message;
+  ChangePasswordError(this.message);
 }

@@ -22,6 +22,8 @@ import 'package:lotus_news/features/auth/data/repositories/auth_repository_impl.
 import 'package:lotus_news/features/auth/data/repositories/auth_storage_repository_impl.dart';
 import 'package:lotus_news/features/auth/domain/repositories/auth_repository.dart';
 import 'package:lotus_news/features/auth/domain/repositories/auth_storage_repository.dart';
+import 'package:lotus_news/features/auth/domain/usecases/authenticated_usecase.dart';
+import 'package:lotus_news/features/auth/domain/usecases/change_password_usecase.dart';
 import 'package:lotus_news/features/auth/domain/usecases/sign_in_usecase.dart';
 import 'package:lotus_news/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:lotus_news/features/auth/presentation/view_model/auth_view_model.dart';
@@ -59,7 +61,9 @@ Future<void> init() async {
       () => NewsViewModel(injector(), injector()),
     )
     ..registerLazySingleton<SearchViewModel>(() => SearchViewModel())
-    ..registerLazySingleton<AuthViewModel>(() => AuthViewModel())
+    ..registerLazySingleton<AuthViewModel>(
+      () => AuthViewModel(injector(), injector(), injector(), injector()),
+    )
     ..registerLazySingleton<NewsVoiceViewModel>(() => NewsVoiceViewModel())
     ..registerLazySingleton<AssistantViewModel>(() => AssistantViewModel())
     ..registerLazySingleton<ChatViewModel>(() => ChatViewModel())
@@ -72,6 +76,12 @@ Future<void> init() async {
     ..registerLazySingleton<SearchUseCase>(() => SearchUseCase(injector()))
     ..registerLazySingleton<SignInUseCase>(() => SignInUseCase(injector()))
     ..registerLazySingleton<SignOutUseCase>(() => SignOutUseCase(injector()))
+    ..registerLazySingleton<ChangePasswordUseCase>(
+      () => ChangePasswordUseCase(injector()),
+    )
+    ..registerLazySingleton<AuthenticatedUseCase>(
+      () => AuthenticatedUseCase(injector()),
+    )
     ..registerLazySingleton<SummaryUseCase>(() => SummaryUseCase(injector()))
     ..registerLazySingleton<SummaryStreamUseCase>(
       () => SummaryStreamUseCase(injector()),

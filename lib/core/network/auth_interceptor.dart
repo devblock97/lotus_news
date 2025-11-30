@@ -15,7 +15,6 @@ class AuthInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
-    // super.onRequest(options, handler);
     try {
       if (_isAuthEndpoint(options.path)) {
         return handler.next(options);

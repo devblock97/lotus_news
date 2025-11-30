@@ -88,9 +88,8 @@ class NewsCard extends StatelessWidget {
           CircleAvatar(
             maxRadius: 10,
             backgroundColor: Colors.white,
-            child: Image.network(
-              news.avatar ??
-                  'https://download.logo.wine/logo/BBC_News/BBC_News-Logo.wine.png',
+            child: Image.asset(
+              'assets/icons/dongthap_gov.png',
               fit: BoxFit.fill,
             ),
           ),

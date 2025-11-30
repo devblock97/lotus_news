@@ -53,7 +53,10 @@ class App extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeModeProvider()),
         ChangeNotifierProvider(create: (_) => SearchViewModel()),
-        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(
+          create: (_) =>
+              AuthViewModel(injector(), injector(), injector(), injector()),
+        ),
         ChangeNotifierProvider(create: (_) => NewsVoiceViewModel()..init()),
         ChangeNotifierProvider(create: (_) => AssistantViewModel()),
         ChangeNotifierProvider(create: (_) => ChatViewModel()),
@@ -61,7 +64,6 @@ class App extends StatelessWidget {
           create: (_) => NewsViewModel(injector(), injector())..getNews(),
         ),
         ChangeNotifierProvider(create: (_) => VoteViewModel(injector())),
-        ChangeNotifierProvider(create: (_) => AuthViewModel()),
       ],
       child: Consumer<ThemeModeProvider>(
         builder: (_, theme, _) {

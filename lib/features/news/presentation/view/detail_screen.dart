@@ -127,18 +127,10 @@ class _DetailScreenState extends State<DetailScreen>
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.white,
-            border: Border(
-              left: BorderSide(color: theme.primaryColor),
-              top: BorderSide(color: theme.primaryColor),
-              right: BorderSide(color: theme.primaryColor),
-              bottom: BorderSide(color: theme.primaryColor),
-            ),
           ),
-          child: CachedNetworkImage(
-            imageUrl: widget.news.avatar ?? '',
-            height: 100,
-            width: 100,
-            fit: BoxFit.fitHeight,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(60),
+            child: Image.asset('assets/icons/dongthap_gov.png'),
           ),
         ),
         const SizedBox(width: 10),

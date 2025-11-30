@@ -54,12 +54,38 @@ void main() {
   });
 
   group('getAuthorizationHeader', () {
-    test('should throw UnimplementedError', () async {
+    test(
+      'should return a Failure when local data source returns null',
+      () async {
+        // arrange
+        when(
+          () => mockAuthLocalDataSource.getAccessToken(),
+        ).thenAnswer((_) async => null);
+
+        // act
+        final result = await repository.getAuthorizationHeader();
+
+        // assert
+        expect(result, isA<Left>());
+        verify(() => mockAuthLocalDataSource.getAccessToken());
+        verifyNoMoreInteractions(mockAuthLocalDataSource);
+      },
+    );
+
+    test('should return Bearer token header', () async {
+      // arrange
+      const tToken = 'test_token';
+      when(
+        () => mockAuthLocalDataSource.getAccessToken(),
+      ).thenAnswer((_) async => tToken);
+
       // act
-      final call = repository.getAuthorizationHeader;
+      final result = await repository.getAuthorizationHeader();
 
       // assert
-      expect(() => call(), throwsA(isA<UnimplementedError>()));
+      expect(result, const Right('Bearer $tToken'));
+      verify(() => mockAuthLocalDataSource.getAccessToken());
+      verifyNoMoreInteractions(mockAuthLocalDataSource);
     });
   });
 }

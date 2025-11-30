@@ -21,10 +21,19 @@ class AuthInterceptor extends Interceptor {
         return handler.next(options);
       }
 
-      final authHeader = await _authStorageRepository.getAuthorizationHeader();
-      authHeader.fold((failure) {}, (data) {
-        options.headers['Authorization'] = authHeader;
-      });
+      final authResult = await _authStorageRepository.getAuthorizationHeader();
+      authResult.fold(
+        (failure) {
+          // Handle failure, maybe log it or just proceed without header
+          return handler.next(options);
+        },
+        (token) {
+          if (token != null) {
+            options.headers['Authorization'] = token;
+          }
+          return handler.next(options);
+        },
+      );
     } catch (e) {
       return handler.next(options);
     }

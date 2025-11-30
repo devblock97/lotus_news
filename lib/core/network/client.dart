@@ -10,9 +10,10 @@ import 'auth_interceptor.dart';
 
 class Client {
   late final Dio _dio;
-  final AuthInterceptor authInterceptor;
+  final AuthInterceptor _authInterceptor;
 
-  Client({required this.authInterceptor}) {
+  Client({required AuthInterceptor authInterceptor})
+    : _authInterceptor = authInterceptor {
     _dio = Dio();
 
     _dio
@@ -21,9 +22,7 @@ class Client {
       )
       ..options.headers = {
         HttpHeaders.contentTypeHeader: ContentType.json.mimeType,
-        HttpHeaders.authorizationHeader: 'Bearer ${AppConstants.token}',
       }
-      ..options.connectTimeout = const Duration(milliseconds: 15000)
       ..options.connectTimeout = const Duration(milliseconds: 15000)
       ..options.responseType = ResponseType.json;
 
@@ -32,7 +31,7 @@ class Client {
 
   void _setupInterceptor() {
     _dio.interceptors.clear();
-    _dio.interceptors.add(authInterceptor);
+    _dio.interceptors.add(_authInterceptor);
     _dio.options.headers['Content-type'] = 'application/json';
     _dio.interceptors.add(
       PrettyDioLogger(

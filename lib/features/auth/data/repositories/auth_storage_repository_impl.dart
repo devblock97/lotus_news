@@ -21,8 +21,14 @@ class AuthStorageRepositoryImpl implements AuthStorageRepository {
   }
 
   @override
-  Future<Either<Failure, String?>> getAuthorizationHeader() {
-    // TODO: implement getAuthorizationHeader
-    throw UnimplementedError();
+  Future<Either<Failure, String?>> getAuthorizationHeader() async {
+    final accessToken = await _localDataSource.getAccessToken();
+    if (accessToken != null) {
+      return Right('Bearer $accessToken');
+    } else {
+      return Left(
+        Failure.fromOffline(RetrieveException('Token không tồn tại')),
+      );
+    }
   }
 }

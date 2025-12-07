@@ -24,11 +24,13 @@ void main() {
       body: 'This is news body 1',
       createdAt: DateTime.now().toIso8601String(),
       score: 10,
+      content: Content(rendered: 'rendered 1'),
       title: 'This is news title 1',
     ),
     NewsModel(
       id: '2',
       body: 'This is news body 2',
+      content: Content(rendered: 'rendered 2'),
       createdAt: DateTime.now().toIso8601String(),
       score: 11,
       title: 'This is news title 2',

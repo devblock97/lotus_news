@@ -96,7 +96,7 @@ class NewsCard extends StatelessWidget {
           const SizedBox(width: 5),
           Expanded(
             child: Text(
-              news.body,
+              news.content.rendered,
               style: theme.textTheme.labelSmall,
               maxLines: 1,
               softWrap: true,
@@ -115,7 +115,7 @@ class NewsCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Text(
         key: Key('description_${news.id}'),
-        news.shortDescription ?? '',
+        news.content.rendered.substring(0, 100),
         maxLines: isPhone ? 3 : 4,
         softWrap: true,
         overflow: TextOverflow.ellipsis,

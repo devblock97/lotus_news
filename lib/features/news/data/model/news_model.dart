@@ -6,6 +6,7 @@ class NewsModel extends Equatable
     with EntityConvertible<NewsEntity, NewsModel> {
   final String id;
   final String body;
+  final Content content;
   final String? summary;
   final String createdAt;
   final int score;
@@ -21,6 +22,7 @@ class NewsModel extends Equatable
     required this.createdAt,
     required this.score,
     required this.title,
+    required this.content,
     this.thumbnail,
     this.avatar,
     this.brandName,
@@ -33,6 +35,7 @@ class NewsModel extends Equatable
       id: json['id'],
       title: json['title'],
       body: json['body'] ?? '',
+      content: Content.fromJson(json['content']),
       score: json['score'],
       createdAt: json['created_at'],
       shortDescription: json['short_description'],
@@ -66,7 +69,27 @@ class NewsModel extends Equatable
     shortDescription,
     avatar,
     brandName,
+    content,
   ];
+}
+
+class Content extends Equatable {
+  final bool protected;
+  final String rendered;
+
+  const Content({required this.rendered, this.protected = false});
+
+  factory Content.fromJson(Map<String, dynamic> json) {
+    return Content(
+      rendered: json['rendered'] ?? '',
+      protected: json['protected'] ?? false,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {'rendered': rendered, 'protected': false};
+
+  @override
+  List<Object?> get props => [rendered, protected];
 }
 
 class ImageSource {

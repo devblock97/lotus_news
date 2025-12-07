@@ -43,6 +43,7 @@ void main() {
       NewsModel(
         id: '1',
         body: 'News body 1',
+        content: Content(rendered: 'rendered 1'),
         createdAt: DateTime.now().toIso8601String(),
         score: 0,
         title: 'News title 1',
@@ -50,6 +51,7 @@ void main() {
       NewsModel(
         id: '2',
         body: 'News body 2',
+        content: Content(rendered: 'rendered 2'),
         createdAt: DateTime.now().toIso8601String(),
         score: 0,
         title: 'News title 2',

@@ -4,6 +4,10 @@
   "title": "This is title post 49",
   "url": "https://url.example.com",
   "body": "This is body post 49",
+  "content": {
+    "rendered": "rendered",
+    "protected": false
+  },
   "short_description": "This is short description post 49",
   "score": 0,
   "created_at": "2025-10-10T16:43:02.204003Z",

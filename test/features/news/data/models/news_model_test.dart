@@ -11,6 +11,7 @@ void main() {
     title: "This is title post 49",
     thumbnail: "https://url.example.com",
     body: "This is body post 49",
+    content: Content(rendered: 'rendered', protected: false),
     shortDescription: "This is short description post 49",
     score: 0,
     createdAt: "2025-10-10T16:43:02.204003Z",

@@ -22,6 +22,7 @@ void main() {
       NewsModel(
         id: '1',
         body: 'This is news body 1',
+        content: Content(rendered: 'rendered 1'),
         createdAt: DateTime.now().toIso8601String(),
         score: 10,
         title: 'This is news title 1',
@@ -29,6 +30,7 @@ void main() {
       NewsModel(
         id: '2',
         body: 'This is news body 2',
+        content: Content(rendered: 'rendered 2'),
         createdAt: DateTime.now().toIso8601String(),
         score: 11,
         title: 'This is news title 2',
@@ -39,6 +41,7 @@ void main() {
       NewsModel(
         id: '1',
         body: 'This is news body 1',
+        content: Content(rendered: 'rendered 3'),
         createdAt: DateTime.now().toIso8601String(),
         score: 10,
         title: 'This is news title 1',
@@ -46,6 +49,7 @@ void main() {
       NewsModel(
         id: '2',
         body: 'This is news body 2',
+        content: Content(rendered: 'rendered 4'),
         createdAt: DateTime.now().toIso8601String(),
         score: 11,
         title: 'This is news title 2',
